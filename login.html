@@ -1141,11 +1141,24 @@ const supabaseClient =
             }
 
 
-            success.textContent =
-                "Hesabın oluşturuldu! " +
-                "E-posta doğrulaması açıksa mail kutunu kontrol et.";
+           if (data.user) {
 
-            success.classList.add("show");
+        success.textContent =
+        "Hesabın başarıyla oluşturuldu! 🍑 " +
+        "E-posta doğrulaması gerekiyorsa mail kutunu kontrol et.";
+
+    success.classList.add("show");
+
+} else {
+
+    error.textContent =
+        "Hesap oluşturulamadı. Lütfen tekrar dene.";
+
+    error.classList.add("show");
+
+    return;
+}
+
 
 
             document
