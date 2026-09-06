@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Giriş Yap | KayısıHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #08080b;
+            --card: #111116;
+            --card2: #17171f;
+            --orange: #ff8a00;
+            --orange2: #ffb347;
+            --text: #ffffff;
+            --muted: #9898a6;
+            --border: rgba(255,255,255,.08);
+            --danger: #ff5757;
+            --success: #56e39f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 20% 10%,
+                    rgba(255,138,0,.13),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(255,138,0,.08),
+                    transparent 30%
+                ),
+                var(--bg);
+        }
+
+        /* BACK TO HOME */
+
+        .back-home {
+            position: fixed;
+            top: 25px;
+            left: 30px;
+
+            color: #d6d6dd;
+            text-decoration: none;
+
+            font-size: 14px;
+
+            padding: 10px 15px;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: rgba(17,17,22,.7);
+
+            backdrop-filter: blur(15px);
+
+            transition: .25s;
+        }
+
+        .back-home:hover {
+            color: var(--orange);
+            border-color: rgba(255,138,0,.5);
+            transform: translateY(-2px);
+        }
+
+        /* MAIN */
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        /* LOGO */
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .logo-small {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        /* CARD */
+
+        .auth-card {
+            width: 100%;
+
+            padding: 35px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,138,0,.09),
+                    transparent 35%
+                ),
+                var(--card);
+
+            border: 1px solid var(--border);
+            border-radius: 24px;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.45);
+
+            overflow: hidden;
+        }
+
+        /* HEADER */
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h1 {
+            font-size: 28px;
+            margin-bottom: 9px;
+            letter-spacing: -1px;
+        }
+
+        .auth-header p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* FORMS */
+
+        .form-container {
+            position: relative;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+            animation: fadeIn .3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #dedee5;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 11px;
+
+            border: 1px solid var(--border);
+
+            outline: none;
+
+            background: var(--card2);
+
+            color: white;
+
+            font-size: 14px;
+
+            transition: .25s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 0 3px rgba(255,138,0,.08);
+        }
+
+        .form-group input::placeholder {
+            color: #666673;
+        }
+
+        .password-input {
+            padding-right: 50px !important;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 13px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+
+            color: #888894;
+
+            cursor: pointer;
+
+            font-size: 17px;
+        }
+
+        .password-toggle:hover {
+            color: var(--orange);
+        }
+
+        /* OPTIONS */
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin: 5px 0 22px;
+
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: var(--muted);
+
+            cursor: pointer;
+        }
+
+        .remember input {
+            accent-color: var(--orange);
+            cursor: pointer;
+        }
+
+        .forgot {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--orange),
+                    var(--orange2)
+                );
+
+            color: #111;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px rgba(255,138,0,.22);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* SWITCH */
+
+        .switch-text {
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-top: 25px;
+        }
+
+        .switch-btn {
+            border: none;
+            background: transparent;
+
+            color: var(--orange);
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-left: 4px;
+        }
+
+        .switch-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* DIVIDER */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 25px 0;
+
+            color: #62626e;
+
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            height: 1px;
+
+            flex: 1;
+
+            background: var(--border);
+        }
+
+        /* SECURITY */
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            color: #777783;
+
+            font-size: 11px;
+
+            margin-top: 25px;
+        }
+
+        /* PASSWORD STRENGTH */
+
+        .password-strength {
+            height: 4px;
+
+            margin-top: 8px;
+
+            border-radius: 10px;
+
+            background: #22222a;
+
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            width: 0;
+            height: 100%;
+
+            border-radius: 10px;
+
+            transition: .3s;
+        }
+
+        .password-strength-text {
+            margin-top: 6px;
+
+            font-size: 11px;
+
+            color: var(--muted);
+        }
+
+        /* ERROR */
+
+        .error-message {
+            display: none;
+
+            padding: 11px 13px;
+
+            margin-bottom: 18px;
+
+            border-radius: 9px;
+
+            background: rgba(255,87,87,.08);
+
+            border: 1px solid rgba(255,87,87,.2);
+
+            color: #ff8585;
+
+            font-size: 12px;
+
+            line-height: 1.4;
+        }
+
+        .error-message.show {
+            display: block;
+
+            animation: fadeIn .25s ease;
+        }
+
+        /* SUCCESS */
+
+        .success-message {
+            display: none;
+
+            padding: 11px 13px;
+
+            margin-bottom: 18px;
+
+            border-radius: 9px;
+
+            background: rgba(86,227,159,.08);
+
+            border: 1px solid rgba(86,227,159,.2);
+
+            color: var(--success);
+
+            font-size: 12px;
+
+            line-height: 1.4;
+        }
+
+        .success-message.show {
+            display: block;
+
+            animation: fadeIn .25s ease;
+        }
+
+        /* TERMS */
+
+        .terms {
+            margin-top: 17px;
+
+            color: #686873;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            text-align: center;
+        }
+
+        .terms a {
+            color: #9999a4;
+            text-decoration: underline;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 600px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .back-home {
+                top: 15px;
+                left: 15px;
+
+                font-size: 12px;
+
+                padding: 8px 11px;
+            }
+
+            .auth-card {
+                padding: 25px 20px;
+
+                border-radius: 20px;
+            }
+
+            .logo {
+                margin-top: 35px;
+
+                font-size: 27px;
+            }
+
+            .auth-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+        @media(max-width: 380px) {
+
+            .auth-card {
+                padding: 22px 16px;
+            }
+
+            .form-options {
+                font-size: 11px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-home">
+    ← Ana Sayfaya Dön
+</a>
+
+
+<div class="auth-wrapper">
+
+    <div class="logo">
+        KAYISI<span>HUB</span> 🍑
+    </div>
+
+    <div class="logo-small">
+        Oyuncuların yeni nesil pazaryeri
+    </div>
+
+
+    <div class="auth-card">
+
+        <!-- GİRİŞ -->
+
+        <div class="form active" id="loginForm">
+
+            <div class="auth-header">
+
+                <h1>Hoş Geldin 👋</h1>
+
+                <p>
+                    KayısıHub hesabına giriş yap
+                    ve pazaryerini keşfet.
+                </p>
+
+            </div>
+
+
+            <div class="error-message" id="loginError">
+                E-posta veya şifre hatalı.
+            </div>
+
+
+            <form onsubmit="loginUser(event)">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        E-posta
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="ornek@mail.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Şifre
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            class="password-input"
+                            placeholder="Şifreni gir"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('loginPassword', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-options">
+
+                    <label class="remember">
+
+                        <input type="checkbox">
+
+                        Beni hatırla
+
+                    </label>
+
+                    <a
+                        href="#"
+                        class="forgot"
+                        onclick="forgotPassword(event)"
+                    >
+                        Şifremi unuttum
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    GİRİŞ YAP
+                </button>
+
+            </form>
+
+
+            <div class="divider">
+                veya
+            </div>
+
+
+            <div class="switch-text">
+
+                Hesabın yok mu?
+
+                <button
+                    class="switch-btn"
+                    onclick="showRegister()"
+                >
+                    Kayıt Ol
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- KAYIT -->
+
+        <div class="form" id="registerForm">
+
+            <div class="auth-header">
+
+                <h1>Aramıza Katıl 🍑</h1>
+
+                <p>
+                    KayısıHub hesabını oluştur
+                    ve oyuncu topluluğuna katıl.
+                </p>
+
+            </div>
+
+
+            <div class="error-message" id="registerError"></div>
+
+            <div class="success-message" id="registerSuccess">
+                Hesabın başarıyla oluşturuldu!
+            </div>
+
+
+            <form onsubmit="registerUser(event)">
+
+                <div class="form-group">
+
+                    <label for="registerUsername">
+                        Kullanıcı Adı
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        placeholder="KayisiOyuncu"
+                        minlength="3"
+                        maxlength="20"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        E-posta
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="ornek@mail.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Şifre
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            class="password-input"
+                            placeholder="En az 6 karakter"
+                            minlength="6"
+                            autocomplete="new-password"
+                            oninput="checkPasswordStrength()"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('registerPassword', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+
+                    <div class="password-strength">
+
+                        <div
+                            class="password-strength-bar"
+                            id="passwordStrengthBar"
+                        ></div>
+
+                    </div>
+
+                    <div
+                        class="password-strength-text"
+                        id="passwordStrengthText"
+                    >
+                        Şifre gücü
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerPasswordConfirm">
+                        Şifre Tekrar
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPasswordConfirm"
+                            class="password-input"
+                            placeholder="Şifreni tekrar gir"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword(
+                                'registerPasswordConfirm',
+                                this
+                            )"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    HESAP OLUŞTUR
+                </button>
+
+            </form>
+
+
+            <div class="terms">
+
+                Kayıt olarak
+                <a href="#">Kullanım Koşullarını</a>
+                ve
+                <a href="#">Gizlilik Politikasını</a>
+                kabul etmiş olursun.
+
+            </div>
+
+
+            <div class="divider">
+                veya
+            </div>
+
+
+            <div class="switch-text">
+
+                Zaten hesabın var mı?
+
+                <button
+                    class="switch-btn"
+                    onclick="showLogin()"
+                >
+                    Giriş Yap
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-note">
+
+            🛡️ Güvenli ve modern hesap deneyimi
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       FORM GEÇİŞLERİ
+    ========================= */
+
+    function showRegister() {
+
+        document
+            .getElementById("loginForm")
+            .classList.remove("active");
+
+        document
+            .getElementById("registerForm")
+            .classList.add("active");
+
+        clearMessages();
+
+    }
+
+
+    function showLogin() {
+
+        document
+            .getElementById("registerForm")
+            .classList.remove("active");
+
+        document
+            .getElementById("loginForm")
+            .classList.add("active");
+
+        clearMessages();
+
+    }
+
+
+    /* =========================
+       ŞİFRE GÖSTER / GİZLE
+    ========================= */
+
+    function togglePassword(inputId, button) {
+
+        const input =
+            document.getElementById(inputId);
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            button.textContent = "🙈";
+
+        } else {
+
+            input.type = "password";
+
+            button.textContent = "👁";
+
+        }
+
+    }
+
+
+    /* =========================
+       ŞİFRE GÜCÜ
+    ========================= */
+
+    function checkPasswordStrength() {
+
+        const password =
+            document.getElementById(
+                "registerPassword"
+            ).value;
+
+        const bar =
+            document.getElementById(
+                "passwordStrengthBar"
+            );
+
+        const text =
+            document.getElementById(
+                "passwordStrengthText"
+            );
+
+
+        let strength = 0;
+
+
+        if (password.length >= 6) {
+            strength++;
+        }
+
+        if (password.length >= 10) {
+            strength++;
+        }
+
+        if (/[A-Z]/.test(password)) {
+            strength++;
+        }
+
+        if (/[0-9]/.test(password)) {
+            strength++;
+        }
+
+        if (/[^A-Za-z0-9]/.test(password)) {
+            strength++;
+        }
+
+
+        if (password.length === 0) {
+
+            bar.style.width = "0";
+            bar.style.background = "transparent";
+
+            text.textContent = "Şifre gücü";
+
+            return;
+        }
+
+
+        if (strength <= 1) {
+
+            bar.style.width = "25%";
+            bar.style.background = "#ff5757";
+
+            text.textContent = "Zayıf şifre";
+
+        } else if (strength <= 3) {
+
+            bar.style.width = "60%";
+            bar.style.background = "#ffb347";
+
+            text.textContent = "Orta güçte şifre";
+
+        } else {
+
+            bar.style.width = "100%";
+            bar.style.background = "#56e39f";
+
+            text.textContent = "Güçlü şifre";
+
+        }
+
+    }
+
+
+    /* =========================
+       KAYIT
+    ========================= */
+
+    function registerUser(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById(
+                "registerUsername"
+            ).value.trim();
+
+        const email =
+            document.getElementById(
+                "registerEmail"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "registerPassword"
+            ).value;
+
+        const passwordConfirm =
+            document.getElementById(
+                "registerPasswordConfirm"
+            ).value;
+
+
+        const error =
+            document.getElementById(
+                "registerError"
+            );
+
+        const success =
+            document.getElementById(
+                "registerSuccess"
+            );
+
+
+        error.classList.remove("show");
+        success.classList.remove("show");
+
+
+        if (username.length < 3) {
+
+            error.textContent =
+                "Kullanıcı adı en az 3 karakter olmalı.";
+
+            error.classList.add("show");
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            error.textContent =
+                "Şifre en az 6 karakter olmalı.";
+
+            error.classList.add("show");
+
+            return;
+        }
+
+
+        if (password !== passwordConfirm) {
+
+            error.textContent =
+                "Girdiğin şifreler eşleşmiyor.";
+
+            error.classList.add("show");
+
+            return;
+        }
+
+
+        /*
+            ŞİMDİLİK DEMO
+
+            Gerçek kayıt sistemi daha sonra
+            Supabase / backend ile bağlanacak.
+        */
+
+        success.textContent =
+            "Bilgilerin hazır! Gerçek hesap sistemi bir sonraki aşamada bağlanacak.";
+
+        success.classList.add("show");
+
+
+        console.log({
+            username: username,
+            email: email
+        });
+
+    }
+
+
+    /* =========================
+       GİRİŞ
+    ========================= */
+
+    function loginUser(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById(
+                "loginEmail"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "loginPassword"
+            ).value;
+
+
+        const error =
+            document.getElementById(
+                "loginError"
+            );
+
+
+        error.classList.remove("show");
+
+
+        if (!email || !password) {
+
+            error.textContent =
+                "Lütfen e-posta ve şifreni gir.";
+
+            error.classList.add("show");
+
+            return;
+        }
+
+
+        /*
+            GERÇEK GİRİŞ SİSTEMİ
+            sonraki aşamada bağlanacak.
+        */
+
+        error.textContent =
+            "Giriş sistemi henüz veritabanına bağlanmadı.";
+
+        error.classList.add("show");
+
+    }
+
+
+    /* =========================
+       ŞİFREMİ UNUTTUM
+    ========================= */
+
+    function forgotPassword(event) {
+
+        event.preventDefault();
+
+        alert(
+            "Şifre yenileme sistemi sonraki aşamada aktif olacak. 🍑"
+        );
+
+    }
+
+
+    /* =========================
+       MESAJLARI TEMİZLE
+    ========================= */
+
+    function clearMessages() {
+
+        const messages =
+            document.querySelectorAll(
+                ".error-message, .success-message"
+            );
+
+        messages.forEach(message => {
+
+            message.classList.remove("show");
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
