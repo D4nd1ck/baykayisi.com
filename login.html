@@ -899,7 +899,27 @@
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+
+    /* =========================
+       SUPABASE AYARLARI
+    ========================= */
+
+   const SUPABASE_URL =
+    "https://zvhtimtlxeizvtmmyfdr.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
+
+const supabaseClient =
+        window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
 
     /* =========================
        FORM GEÇİŞLERİ
@@ -916,7 +936,6 @@
             .classList.add("active");
 
         clearMessages();
-
     }
 
 
@@ -931,7 +950,6 @@
             .classList.add("active");
 
         clearMessages();
-
     }
 
 
@@ -947,17 +965,14 @@
         if (input.type === "password") {
 
             input.type = "text";
-
             button.textContent = "🙈";
 
         } else {
 
             input.type = "password";
-
             button.textContent = "👁";
 
         }
-
     }
 
 
@@ -982,36 +997,19 @@
                 "passwordStrengthText"
             );
 
-
         let strength = 0;
 
-
-        if (password.length >= 6) {
-            strength++;
-        }
-
-        if (password.length >= 10) {
-            strength++;
-        }
-
-        if (/[A-Z]/.test(password)) {
-            strength++;
-        }
-
-        if (/[0-9]/.test(password)) {
-            strength++;
-        }
-
-        if (/[^A-Za-z0-9]/.test(password)) {
-            strength++;
-        }
+        if (password.length >= 6) strength++;
+        if (password.length >= 10) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
 
 
         if (password.length === 0) {
 
             bar.style.width = "0";
             bar.style.background = "transparent";
-
             text.textContent = "Şifre gücü";
 
             return;
@@ -1022,33 +1020,28 @@
 
             bar.style.width = "25%";
             bar.style.background = "#ff5757";
-
             text.textContent = "Zayıf şifre";
 
         } else if (strength <= 3) {
 
             bar.style.width = "60%";
             bar.style.background = "#ffb347";
-
             text.textContent = "Orta güçte şifre";
 
         } else {
 
             bar.style.width = "100%";
             bar.style.background = "#56e39f";
-
             text.textContent = "Güçlü şifre";
-
         }
-
     }
 
 
     /* =========================
-       KAYIT
+       GERÇEK KAYIT
     ========================= */
 
-    function registerUser(event) {
+    async function registerUser(event) {
 
         event.preventDefault();
 
@@ -1121,32 +1114,74 @@
         }
 
 
-        /*
-            ŞİMDİLİK DEMO
+        try {
 
-            Gerçek kayıt sistemi daha sonra
-            Supabase / backend ile bağlanacak.
-        */
+            const {
+                data,
+                error: signUpError
+            } = await supabaseClient.auth.signUp({
 
-        success.textContent =
-            "Bilgilerin hazır! Gerçek hesap sistemi bir sonraki aşamada bağlanacak.";
+                email: email,
 
-        success.classList.add("show");
+                password: password,
+
+                options: {
+
+                    data: {
+                        username: username
+                    }
+
+                }
+
+            });
 
 
-        console.log({
-            username: username,
-            email: email
-        });
+            if (signUpError) {
+                throw signUpError;
+            }
+
+
+            success.textContent =
+                "Hesabın oluşturuldu! " +
+                "E-posta doğrulaması açıksa mail kutunu kontrol et.";
+
+            success.classList.add("show");
+
+
+            document
+                .getElementById("registerPassword")
+                .value = "";
+
+            document
+                .getElementById("registerPasswordConfirm")
+                .value = "";
+
+
+            console.log(
+                "Kayıt başarılı:",
+                data
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            errorMessage(
+                "registerError",
+                getAuthErrorMessage(error)
+            );
+
+        }
 
     }
 
 
     /* =========================
-       GİRİŞ
+       GERÇEK GİRİŞ
     ========================= */
 
-    function loginUser(event) {
+    async function loginUser(event) {
 
         event.preventDefault();
 
@@ -1182,29 +1217,169 @@
         }
 
 
-        /*
-            GERÇEK GİRİŞ SİSTEMİ
-            sonraki aşamada bağlanacak.
-        */
+        try {
 
-        error.textContent =
-            "Giriş sistemi henüz veritabanına bağlanmadı.";
+            const {
+                data,
+                error: loginError
+            } = await supabaseClient.auth.signInWithPassword({
 
-        error.classList.add("show");
+                email: email,
+
+                password: password
+
+            });
+
+
+            if (loginError) {
+                throw loginError;
+            }
+
+
+            console.log(
+                "Giriş başarılı:",
+                data
+            );
+
+
+            /*
+                Başarılı girişten sonra
+                ana sayfaya gönder.
+            */
+
+            window.location.href =
+                "index.html";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            errorMessage(
+                "loginError",
+                getAuthErrorMessage(error)
+            );
+
+        }
 
     }
 
 
     /* =========================
-       ŞİFREMİ UNUTTUM
+       ŞİFRE SIFIRLAMA
     ========================= */
 
-    function forgotPassword(event) {
+    async function forgotPassword(event) {
 
         event.preventDefault();
 
-        alert(
-            "Şifre yenileme sistemi sonraki aşamada aktif olacak. 🍑"
+
+        const email =
+            document.getElementById(
+                "loginEmail"
+            ).value.trim();
+
+
+        if (!email) {
+
+            alert(
+                "Önce e-posta adresini gir."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } = await supabaseClient.auth.resetPasswordForEmail(
+                email,
+                {
+                    redirectTo:
+                        window.location.origin +
+                        "/reset-password.html"
+                }
+            );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            alert(
+                "Şifre yenileme bağlantısı e-posta adresine gönderildi. 📧"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                getAuthErrorMessage(error)
+            );
+
+        }
+
+    }
+
+
+    /* =========================
+       HATA MESAJLARI
+    ========================= */
+
+    function errorMessage(id, message) {
+
+        const element =
+            document.getElementById(id);
+
+        element.textContent = message;
+
+        element.classList.add("show");
+
+    }
+
+
+    function getAuthErrorMessage(error) {
+
+        const message =
+            error?.message?.toLowerCase() || "";
+
+
+        if (message.includes("invalid login")) {
+
+            return "E-posta veya şifre hatalı.";
+
+        }
+
+
+        if (message.includes("user already registered")) {
+
+            return "Bu e-posta adresi zaten kayıtlı.";
+
+        }
+
+
+        if (message.includes("password")) {
+
+            return "Şifre en az 6 karakter olmalı.";
+
+        }
+
+
+        if (message.includes("email")) {
+
+            return "Geçerli bir e-posta adresi gir.";
+
+        }
+
+
+        return (
+            error?.message ||
+            "Bir hata oluştu. Lütfen tekrar dene."
         );
 
     }
@@ -1228,6 +1403,32 @@
         });
 
     }
+
+
+    /* =========================
+       OTURUM KONTROLÜ
+    ========================= */
+
+    async function checkSession() {
+
+        const {
+            data
+        } = await supabaseClient.auth.getSession();
+
+
+        if (data.session) {
+
+            console.log(
+                "Aktif kullanıcı:",
+                data.session.user.email
+            );
+
+        }
+
+    }
+
+
+    checkSession();
 
 </script>
 
