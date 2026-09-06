@@ -1343,53 +1343,48 @@ const supabaseClient =
     }
 
 
-    function getAuthErrorMessage(error) {
+  function getAuthErrorMessage(error) {
 
-        const message =
-            error?.message?.toLowerCase() || "";
+    console.error("SUPABASE HATASI:", error);
 
+    const message =
+        error?.message?.toLowerCase() || "";
 
-        if (message.includes("invalid login")) {
-
-            return "E-posta veya şifre hatalı.";
-
-        }
-
-
-        if (message.includes("user already registered")) {
-
-            return "Bu e-posta adresi zaten kayıtlı.";
-
-        }
-
-
-        if (message.includes("password")) {
-
-            return "Şifre en az 6 karakter olmalı.";
-
-      if (
-    message.includes("invalid email") ||
-    message.includes("invalid format")
-   ) {
-
-    return "Geçerli bir e-posta adresi gir.";
-
-}
-
-if (message.includes("email rate limit")) {
-
-    return "Çok fazla e-posta isteği gönderildi. Biraz bekleyip tekrar dene.";
-
-}
-
-
-
-        return (
-            error?.message ||
-            "Bir hata oluştu. Lütfen tekrar dene."
-        );
-
+    if (
+        message.includes("invalid login credentials") ||
+        message.includes("invalid credentials")
+    ) {
+        return "E-posta veya şifre hatalı.";
     }
+
+    if (
+        message.includes("user already registered") ||
+        message.includes("already registered")
+    ) {
+        return "Bu e-posta adresi zaten kayıtlı. Giriş yapmayı dene.";
+    }
+
+    if (
+        message.includes("invalid email") ||
+        message.includes("invalid email address")
+    ) {
+        return "E-posta adresi geçersiz.";
+    }
+
+    if (message.includes("password")) {
+        return "Şifre en az 6 karakter olmalı.";
+    }
+
+    if (message.includes("rate limit")) {
+        return "Çok fazla deneme yapıldı. Birkaç dakika bekleyip tekrar dene.";
+    }
+
+    if (message.includes("email not confirmed")) {
+        return "E-posta adresini doğrulaman gerekiyor.";
+    }
+
+    return error?.message || "Bir hata oluştu. Lütfen tekrar dene.";
+}
 
 
     /* =========================
