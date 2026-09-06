@@ -1,25 +1,1029 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecrinimi sevdiğim her günüm</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KayısıHub | Oyuncuların Pazaryeri</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #08080b;
+    --card: #111116;
+    --card2: #17171f;
+    --orange: #ff8a00;
+    --orange2: #ffb347;
+    --text: #ffffff;
+    --muted: #9898a6;
+    --border: rgba(255,255,255,.08);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 80% 0%, rgba(255,138,0,.12), transparent 30%),
+        var(--bg);
+    color: var(--text);
+}
+
+/* NAVBAR */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 7%;
+    background: rgba(8,8,11,.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: #d6d6dd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .25s;
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 11px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+    border-color: var(--orange);
+}
+
+.btn-primary {
+    color: #111;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,138,0,.25);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 580px;
+    padding: 90px 7%;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255,138,0,.25);
+    border-radius: 30px;
+
+    color: var(--orange2);
+    background: rgba(255,138,0,.08);
+
+    font-size: 13px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 78px);
+    line-height: .95;
+    letter-spacing: -3px;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: var(--orange);
+}
+
+.hero p {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+}
+
+/* HERO PANEL */
+
+.hero-panel {
+    background:
+        linear-gradient(145deg,
+        rgba(255,138,0,.15),
+        transparent 40%),
+        var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.live {
+    color: #56e39f;
+    font-size: 13px;
+}
+
+.account-preview {
+    background: var(--card2);
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.game-banner {
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    font-size: 48px;
+
+    background:
+        linear-gradient(135deg,#442000,#120d08);
+}
+
+.account-preview h3 {
+    margin-top: 16px;
+}
+
+.account-preview p {
+    color: var(--muted);
+    margin-top: 7px;
+}
+
+.account-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+}
+
+.price {
+    color: var(--orange);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* STATS */
+
+.stats {
+    margin: 0 7%;
+
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+.stat {
+    padding: 28px;
+    text-align: center;
+}
+
+.stat:not(:last-child) {
+    border-right: 1px solid var(--border);
+}
+
+.stat h2 {
+    font-size: 28px;
+    color: var(--orange);
+}
+
+.stat p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+/* SECTIONS */
+
+section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+}
+
+.section-title p {
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+.section-title a {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+/* CATEGORIES */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+}
+
+.category {
+    padding: 28px;
+
+    border-radius: 18px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.category:hover {
+    transform: translateY(-7px);
+    border-color: rgba(255,138,0,.5);
+}
+
+.category .icon {
+    font-size: 36px;
+    margin-bottom: 18px;
+}
+
+.category p {
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* SEARCH */
+
+.market-search {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.market-search input {
+    flex: 1;
+
+    padding: 16px 20px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border);
+
+    background: var(--card);
+    color: white;
+
+    outline: none;
+}
+
+.market-search input:focus {
+    border-color: var(--orange);
+}
+
+/* ACCOUNT GRID */
+
+.accounts {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.account-card {
+    overflow: hidden;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    transition: .3s;
+}
+
+.account-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,138,0,.4);
+}
+
+.account-image {
+    height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 55px;
+
+    background:
+        linear-gradient(135deg,#2b1608,#100e12);
+}
+
+.account-info {
+    padding: 20px;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.tag {
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background: rgba(255,255,255,.05);
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.seller {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--muted);
+    font-size: 13px;
+
+    margin: 18px 0;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* TRUST */
+
+.trust {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.trust-card {
+    text-align: center;
+
+    padding: 40px 25px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+.trust-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.trust-card p {
+    color: var(--muted);
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+/* CTA */
+
+.cta {
+    margin: 0 7% 100px;
+
+    text-align: center;
+
+    padding: 70px 25px;
+
+    border-radius: 25px;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(255,138,0,.2),
+        transparent 60%),
+        var(--card);
+
+    border: 1px solid var(--border);
+}
+
+.cta h2 {
+    font-size: 42px;
+}
+
+.cta p {
+    color: var(--muted);
+    margin: 15px auto 25px;
+    max-width: 600px;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 50px 7%;
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px) {
+
+    nav {
+        padding: 16px 5%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 70px 5%;
+    }
+
+    .stats {
+        margin: 0 5%;
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .categories {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .accounts {
+        grid-template-columns: 1fr;
+    }
+
+    .trust {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 70px 5%;
+    }
+
+    .cta {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>❤️ ECRİN ❤️ ALİ MERT ❤️</h1>
-        <p class="since">İlk tanışma tarihimizden beri</p>
-        <div class="timer">
-            <div><span id="years">0</span><p>Yıl</p></div>
-            <div><span id="months">0</span><p>Ay</p></div>
-            <div><span id="days">0</span><p>Gün</p></div>
-            <div><span id="hours">0</span><p>Saat</p></div>
-            <div><span id="minutes">0</span><p>Dakika</p></div>
-            <div><span id="seconds">0</span><p>Saniye</p></div>
-        </div>
-        <p id="anniversaryMessage"></p>
-    </div>
-    <script src="script.js"></script>
+
+<nav>
+
+<div class="logo">KAYISI<span>HUB</span> 🍑</div>
+
+<div class="nav-links">
+<a href="#">Ana Sayfa</a>
+<a href="#market">Hesap Pazarı</a>
+<a href="#games">Oyunlar</a>
+<a href="#security">Güvenli İşlem</a>
+</div>
+
+<div class="nav-actions">
+<button class="btn btn-outline" onclick="login()">Giriş Yap</button>
+<button class="btn btn-primary" onclick="sell()">İlan Ver</button>
+</div>
+
+</nav>
+
+
+<section class="hero">
+
+<div>
+
+<div class="badge">🍑 YENİ NESİL OYUN PAZARYERİ</div>
+
+<h1>
+OYUNUN DEĞERİ,<br>
+<span>GÜVENİN ADRESİ.</span>
+</h1>
+
+<p>
+KayısıHub'da oyun hesaplarını keşfet, ilanlarını oluştur
+ve oyuncularla modern bir pazaryeri deneyiminde buluş.
+</p>
+
+<div class="hero-buttons">
+
+<button class="btn btn-primary"
+onclick="document.getElementById('market').scrollIntoView()">
+Hesapları Keşfet
+</button>
+
+<button class="btn btn-outline" onclick="sell()">
+Hesap Sat
+</button>
+
+</div>
+
+</div>
+
+
+<div class="hero-panel">
+
+<div class="panel-header">
+<strong>🔥 Öne Çıkan İlan</strong>
+<span class="live">● Aktif</span>
+</div>
+
+<div class="account-preview">
+
+<div class="game-banner">⚔️</div>
+
+<h3>Mobile Legends Premium Hesap</h3>
+
+<p>Yüksek rank • Nadir kostümler • Detaylı ilan</p>
+
+<div class="account-bottom">
+
+<div>
+<div style="font-size:12px;color:#888">FİYAT</div>
+<div class="price">2.750 ₺</div>
+</div>
+
+<button class="btn btn-primary"
+onclick="alert('İlan detay sayfası yakında aktif olacak!')">
+İncele
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="stats">
+
+<div class="stat">
+<h2>0+</h2>
+<p>Aktif İlan</p>
+</div>
+
+<div class="stat">
+<h2>0+</h2>
+<p>Oyuncu</p>
+</div>
+
+<div class="stat">
+<h2>24/7</h2>
+<p>Platform Erişimi</p>
+</div>
+
+<div class="stat">
+<h2>🍑</h2>
+<p>KayısıHub Topluluğu</p>
+</div>
+
+</div>
+
+
+<section id="games">
+
+<div class="section-title">
+
+<div>
+<h2>Popüler Oyunlar</h2>
+<p>İstediğin oyunu seç ve ilanları keşfet.</p>
+</div>
+
+</div>
+
+
+<div class="categories">
+
+<div class="category" onclick="filterGame('Mobile Legends')">
+<div class="icon">⚔️</div>
+<h3>Mobile Legends</h3>
+<p>Hesaplar ve oyun hizmetleri</p>
+</div>
+
+<div class="category" onclick="filterGame('PUBG Mobile')">
+<div class="icon">🔫</div>
+<h3>PUBG Mobile</h3>
+<p>Premium hesaplar</p>
+</div>
+
+<div class="category" onclick="filterGame('Free Fire')">
+<div class="icon">🔥</div>
+<h3>Free Fire</h3>
+<p>Hesap ve içerikler</p>
+</div>
+
+<div class="category" onclick="filterGame('Diğer')">
+<div class="icon">🎮</div>
+<h3>Diğer Oyunlar</h3>
+<p>Yeni kategoriler yakında</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="market">
+
+<div class="section-title">
+
+<div>
+<h2>Öne Çıkan Hesaplar</h2>
+<p>Topluluğun keşfettiği ilanlar.</p>
+</div>
+
+<a href="#">Tümünü Gör →</a>
+
+</div>
+
+
+<div class="market-search">
+
+<input
+id="search"
+placeholder="Oyun veya hesap ara..."
+onkeyup="searchAccounts()">
+
+<button class="btn btn-primary">
+Ara
+</button>
+
+</div>
+
+
+<div class="accounts" id="accounts">
+
+
+<div class="account-card" data-game="Mobile Legends">
+
+<div class="account-image">⚔️</div>
+
+<div class="account-info">
+
+<h3>Mobile Legends Mythic Hesap</h3>
+
+<div class="tags">
+<span class="tag">Mythic</span>
+<span class="tag">120 Skin</span>
+</div>
+
+<div class="seller">
+<span>👤 KayısıSeller</span>
+<span>⭐ 4.9</span>
+</div>
+
+<div class="card-footer">
+
+<strong class="price">2.750 ₺</strong>
+
+<button class="btn btn-primary"
+onclick="viewAccount('Mobile Legends Mythic Hesap')">
+İncele
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="account-card" data-game="PUBG Mobile">
+
+<div class="account-image">🔫</div>
+
+<div class="account-info">
+
+<h3>PUBG Mobile Premium Hesap</h3>
+
+<div class="tags">
+<span class="tag">Seviye 70</span>
+<span class="tag">Nadir Set</span>
+</div>
+
+<div class="seller">
+<span>👤 ProSeller</span>
+<span>⭐ 5.0</span>
+</div>
+
+<div class="card-footer">
+
+<strong class="price">3.200 ₺</strong>
+
+<button class="btn btn-primary"
+onclick="viewAccount('PUBG Mobile Premium Hesap')">
+İncele
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="account-card" data-game="Free Fire">
+
+<div class="account-image">🔥</div>
+
+<div class="account-info">
+
+<h3>Free Fire Koleksiyon Hesabı</h3>
+
+<div class="tags">
+<span class="tag">Nadir Skin</span>
+<span class="tag">Yüksek Seviye</span>
+</div>
+
+<div class="seller">
+<span>👤 FireKing</span>
+<span>⭐ 4.8</span>
+</div>
+
+<div class="card-footer">
+
+<strong class="price">1.850 ₺</strong>
+
+<button class="btn btn-primary"
+onclick="viewAccount('Free Fire Koleksiyon Hesabı')">
+İncele
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<section id="security">
+
+<div class="section-title">
+
+<div>
+<h2>Neden KayısıHub?</h2>
+<p>Sadece ilanların olduğu bir site değil, büyüyen bir oyuncu merkezi.</p>
+</div>
+
+</div>
+
+
+<div class="trust">
+
+<div class="trust-card">
+
+<div class="trust-icon">🛡️</div>
+
+<h3>Güven Odaklı</h3>
+
+<p>
+Platformun işlem ve kullanıcı güvenliği için tasarlanacak sistemleriyle daha düzenli bir alışveriş deneyimi.
+</p>
+
+</div>
+
+
+<div class="trust-card">
+
+<div class="trust-icon">⚡</div>
+
+<h3>Hızlı Keşfet</h3>
+
+<p>
+Oyunları, hesapları ve ilan detaylarını karmaşık ekranlar olmadan hızlıca bul.
+</p>
+
+</div>
+
+
+<div class="trust-card">
+
+<div class="trust-icon">👑</div>
+
+<h3>Topluluk Gücü</h3>
+
+<p>
+KayısıHub topluluğu büyüdükçe daha fazla ilan, kategori ve özellik platforma eklenir.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="cta">
+
+<h2>KayısıHub'a Katılmaya Hazır mısın? 🍑</h2>
+
+<p>
+İlk ilanını oluştur, oyuncularla buluş ve KayısıHub topluluğunun parçası ol.
+</p>
+
+<button class="btn btn-primary" onclick="sell()">
+Hemen İlan Ver
+</button>
+
+</div>
+
+
+<footer>
+
+<div>© 2026 KayısıHub</div>
+
+<div>Oyuncular için tasarlandı 🎮</div>
+
+</footer>
+
+
+<script>
+
+function sell() {
+
+    alert(
+        "İlan sistemi henüz geliştirme aşamasında. 🚀\n\n" +
+        "Sonraki aşamada kullanıcı paneli ve ilan ekleme sayfasını kuracağız."
+    );
+
+}
+
+
+function login() {
+
+    alert(
+        "Giriş sistemi henüz aktif değil.\n\n" +
+        "Sonraki sürümde kayıt ve kullanıcı paneli eklenecek."
+    );
+
+}
+
+
+function viewAccount(name) {
+
+    alert(
+        name +
+        " ilan detayına yönlendirme sistemi sonraki aşamada eklenecek."
+    );
+
+}
+
+
+function searchAccounts() {
+
+    const value =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".account-card");
+
+    cards.forEach(card => {
+
+        const text =
+            card.innerText.toLowerCase();
+
+        if (text.includes(value)) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+function filterGame(game) {
+
+    document
+    .getElementById("market")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+
+    const cards =
+        document.querySelectorAll(".account-card");
+
+    cards.forEach(card => {
+
+        if (
+            card.dataset.game === game ||
+            game === "Diğer"
+        ) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
 </body>
 </html>
