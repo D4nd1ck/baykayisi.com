@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profil | KayısıHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #08090d;
+            --sidebar: #11141a;
+            --card: #11141a;
+            --card2: #181c23;
+
+            --blue: #3d55ff;
+            --blue2: #536aff;
+
+            --orange: #ff8a00;
+            --orange2: #ffb347;
+
+            --text: #ffffff;
+            --muted: #8e95a3;
+            --muted2: #656c79;
+
+            --border: rgba(255,255,255,.09);
+
+            --green: #19d887;
+            --red: #ff5757;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 80% 0%,
+                    rgba(61,85,255,.08),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* =========================
+           LAYOUT
+        ========================= */
+
+        .dashboard {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            padding: 22px;
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+
+            width: 267px;
+
+            flex-shrink: 0;
+
+            background: var(--sidebar);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            display: flex;
+            flex-direction: column;
+
+            min-height: calc(100vh - 44px);
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 25px;
+
+            padding-left: 5px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+
+        /* USER */
+
+        .user-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding-bottom: 17px;
+
+            border-bottom: 1px dashed rgba(255,255,255,.1);
+        }
+
+        .avatar {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #303746,
+                    #151821
+                );
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            overflow: hidden;
+        }
+
+        .avatar img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .user-info {
+            min-width: 0;
+        }
+
+        .user-info strong {
+
+            display: block;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .balance {
+
+            color: var(--green);
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-top: 3px;
+        }
+
+
+        /* BALANCE BUTTON */
+
+        .balance-btn {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    #2f43c7
+                );
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .balance-btn:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px rgba(61,85,255,.22);
+        }
+
+
+        /* MENU */
+
+        .menu {
+
+            margin-top: 18px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+        .menu-title {
+
+            color: #555c68;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            margin: 7px 5px 4px;
+        }
+
+        .menu button {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--muted);
+
+            padding: 10px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            transition: .2s;
+        }
+
+        .menu button:hover {
+
+            background: rgba(255,255,255,.04);
+
+            color: white;
+        }
+
+        .menu button.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(61,85,255,.22),
+                    rgba(61,85,255,.08)
+                );
+
+            color: #7890ff;
+
+            border: 1px solid rgba(61,85,255,.25);
+        }
+
+        .menu-icon {
+
+            width: 29px;
+            height: 29px;
+
+            border-radius: 9px;
+
+            background: #1b2029;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+
+            flex-shrink: 0;
+        }
+
+        .menu button.active .menu-icon {
+
+            background: var(--blue);
+
+            color: white;
+        }
+
+
+        /* LOGOUT */
+
+        .logout {
+
+            margin-top: auto;
+
+            padding-top: 15px;
+
+            border-top: 1px dashed rgba(255,255,255,.1);
+        }
+
+        .logout button {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: #858c98;
+
+            padding: 10px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+        .logout button:hover {
+
+            color: var(--red);
+
+            background: rgba(255,87,87,.06);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding-bottom: 30px;
+        }
+
+
+        /* TOP HEADER */
+
+        .top-header {
+
+            min-height: 106px;
+
+            border-radius: 11px;
+
+            border: 1px solid rgba(61,85,255,.18);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(61,85,255,.07),
+                    rgba(17,20,26,.95)
+                );
+
+            padding: 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 18px;
+        }
+
+        .welcome {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .welcome-avatar {
+
+            width: 55px;
+            height: 55px;
+
+            border-radius: 12px;
+
+            background: #1a1f28;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+        }
+
+        .welcome-avatar img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .welcome h1 {
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .date-box {
+
+            border: 1px solid var(--border);
+
+            background: rgba(0,0,0,.15);
+
+            border-radius: 10px;
+
+            padding: 11px 14px;
+
+            font-size: 11px;
+
+            color: #d8dce3;
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+
+            display: none;
+
+            animation: fadeIn .25s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            gap: 18px;
+        }
+
+        .card {
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            padding: 20px;
+
+            min-width: 0;
+        }
+
+        .card.full {
+            grid-column: 1 / -1;
+        }
+
+        .card-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            padding-bottom: 17px;
+
+            border-bottom: 1px solid var(--border);
+
+            margin-bottom: 16px;
+        }
+
+        .title-icon {
+
+            color: var(--blue);
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           INFO BOX
+        ========================= */
+
+        .info-box {
+
+            background: #191d24;
+
+            border: 1px solid rgba(255,255,255,.06);
+
+            border-radius: 10px;
+
+            padding: 14px;
+
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+
+            display: block;
+
+            color: #777f8d;
+
+            font-size: 10px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           STATISTICS
+        ========================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .stat {
+
+            background: #191d24;
+
+            border: 1px solid rgba(255,255,255,.06);
+
+            border-radius: 10px;
+
+            padding: 15px;
+        }
+
+        .stat-icon {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 9px;
+
+            background: rgba(61,85,255,.1);
+
+            color: var(--blue2);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 10px;
+        }
+
+        .stat span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-bottom: 4px;
+        }
+
+        .stat strong {
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           ORDER
+        ========================= */
+
+        .order {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            background: #191d24;
+
+            border: 1px solid rgba(255,255,255,.06);
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            margin-bottom: 9px;
+        }
+
+        .order:last-child {
+            margin-bottom: 0;
+        }
+
+        .order-info strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+        }
+
+        .order-info span {
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .order-right {
+
+            text-align: right;
+        }
+
+        .order-price {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 5px;
+        }
+
+        .status {
+
+            font-size: 9px;
+
+            padding: 5px 8px;
+
+            border-radius: 20px;
+
+            background: rgba(25,216,135,.09);
+
+            color: var(--green);
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: var(--muted);
+        }
+
+        .empty-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+
+            color: white;
+
+            font-size: 14px;
+
+            margin-bottom: 6px;
+        }
+
+        .empty p {
+
+            font-size: 11px;
+
+            color: var(--muted2);
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+
+            display: block;
+
+            color: #bfc4ce;
+
+            font-size: 11px;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            border: 1px solid var(--border);
+
+            background: #0d0f13;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 12px;
+        }
+
+        .form-group input:focus {
+
+            border-color: var(--blue);
+        }
+
+        .save-btn {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    #3044ce
+                );
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================
+           SECURITY
+        ========================= */
+
+        .security-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 14px;
+
+            background: #191d24;
+
+            border: 1px solid rgba(255,255,255,.06);
+
+            border-radius: 10px;
+
+            margin-bottom: 9px;
+        }
+
+        .security-row strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 3px;
+        }
+
+        .security-row span {
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .verified {
+
+            color: var(--green) !important;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 900px) {
+
+            .dashboard {
+                padding: 12px;
+            }
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card.full {
+                grid-column: auto;
+            }
+        }
+
+
+        @media(max-width: 700px) {
+
+            .dashboard {
+                display: block;
+            }
+
+            .sidebar {
+
+                width: 100%;
+
+                min-height: auto;
+
+                margin-bottom: 15px;
+            }
+
+            .menu {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .menu-title {
+                grid-column: 1 / -1;
+            }
+
+            .logout {
+                margin-top: 15px;
+            }
+
+            .top-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .date-box {
+                width: 100%;
+            }
+        }
+
+
+        @media(max-width: 450px) {
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .top-header {
+                padding: 18px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .welcome h1 {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+            KAYISI<span>HUB</span> 🍑
+        </div>
+
+
+        <!-- USER -->
+
+        <div class="user-box">
+
+            <div class="avatar" id="sidebarAvatar">
+                👤
+            </div>
+
+            <div class="user-info">
+
+                <strong id="sidebarUsername">
+                    Yükleniyor...
+                </strong>
+
+                <div class="balance">
+                    <span id="sidebarBalance">0,00</span> TL
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="balance-btn"
+            onclick="showPage('balance')"
+        >
+            💰 &nbsp; Bakiye Yükle
+        </button>
+
+
+        <!-- MENU -->
+
+        <nav class="menu">
+
+
+            <div class="menu-title">
+                Hesabım
+            </div>
+
+
+            <button
+                class="active"
+                data-page="overview"
+                onclick="showPage('overview')"
+            >
+                <span class="menu-icon">▦</span>
+                Hesap Özeti
+            </button>
+
+
+            <button
+                data-page="profile"
+                onclick="showPage('profile')"
+            >
+                <span class="menu-icon">👤</span>
+                Profil Ayarları
+            </button>
+
+
+            <button
+                data-page="orders"
+                onclick="showPage('orders')"
+            >
+                <span class="menu-icon">📦</span>
+                Siparişlerim
+            </button>
+
+
+            <button
+                data-page="purchases"
+                onclick="showPage('purchases')"
+            >
+                <span class="menu-icon">🛒</span>
+                Satın Aldıklarım
+            </button>
+
+
+            <button
+                data-page="favorites"
+                onclick="showPage('favorites')"
+            >
+                <span class="menu-icon">❤️</span>
+                Favorilerim
+            </button>
+
+
+            <button
+                data-page="listings"
+                onclick="showPage('listings')"
+            >
+                <span class="menu-icon">🏪</span>
+                İlanlarım
+            </button>
+
+
+            <div class="menu-title">
+                Finans
+            </div>
+
+
+            <button
+                data-page="balance"
+                onclick="showPage('balance')"
+            >
+                <span class="menu-icon">💳</span>
+                Bakiye
+            </button>
+
+
+            <div class="menu-title">
+                Güvenlik
+            </div>
+
+
+            <button
+                data-page="security"
+                onclick="showPage('security')"
+            >
+                <span class="menu-icon">🔒</span>
+                Hesap Güvenliği
+            </button>
+
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout">
+
+            <button onclick="logoutUser()">
+
+                <span class="menu-icon">
+                    🚪
+                </span>
+
+                Çıkış Yap
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+
+            <div class="welcome">
+
+
+                <div
+                    class="welcome-avatar"
+                    id="welcomeAvatar"
+                >
+                    👤
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Merhaba,
+                        <span id="welcomeUsername">
+                            kullanıcı
+                        </span>
+                        👋
+                    </h1>
+
+                    <p>
+                        Hesap özetinizi ve ayarlarınızı
+                        bu panelden güvenle yönetebilirsiniz.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="date-box">
+
+                📅
+
+                <span id="currentDate">
+                    --
+                </span>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =========================
+             OVERVIEW
+        ========================== -->
+
+        <section
+            class="page active"
+            id="page-overview"
+        >
+
+
+            <div class="grid">
+
+
+                <!-- ACCOUNT -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            👤
+                        </span>
+
+                        Hesap Bilgileri
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Kullanıcı Adı
+                        </span>
+
+                        <div
+                            class="info-value"
+                            id="overviewUsername"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            E-posta
+                        </span>
+
+                        <div
+                            class="info-value"
+                            id="overviewEmail"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Hesap Türü
+                        </span>
+
+                        <div class="info-value">
+                            Standart Üye
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- STATS -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            ⚡
+                        </span>
+
+                        Hızlı Bilgiler
+
+                    </div>
+
+
+                    <div class="stats">
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                📦
+                            </div>
+
+                            <span>
+                                Siparişler
+                            </span>
+
+                            <strong id="orderCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                ❤️
+                            </div>
+
+                            <span>
+                                Favoriler
+                            </span>
+
+                            <strong id="favoriteCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                🏪
+                            </div>
+
+                            <span>
+                                İlanlarım
+                            </span>
+
+                            <strong id="listingCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                💰
+                            </div>
+
+                            <span>
+                                Bakiye
+                            </span>
+
+                            <strong>
+                                <span id="overviewBalance">
+                                    0,00
+                                </span>
+                                TL
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT ORDERS -->
+
+                <div class="card full">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            📦
+                        </span>
+
+                        Son Siparişler
+
+                    </div>
+
+
+                    <div
+                        id="recentOrders"
+                        class="empty"
+                    >
+
+                        <div class="empty-icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            Henüz sipariş yok
+                        </h3>
+
+                        <p>
+                            Verdiğiniz siparişler burada görünecek.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             PROFILE
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-profile"
+        >
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            👤
+                        </span>
+
+                        Profil Ayarları
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Kullanıcı Adı
+                        </label>
+
+                        <input
+                            id="profileUsername"
+                            type="text"
+                            placeholder="Kullanıcı adınız"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            E-posta
+                        </label>
+
+                        <input
+                            id="profileEmail"
+                            type="email"
+                            disabled
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="save-btn"
+                        onclick="saveProfile()"
+                    >
+                        Değişiklikleri Kaydet
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            📊
+                        </span>
+
+                        Hesap Bilgileri
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Hesap ID
+                        </span>
+
+                        <div
+                            class="info-value"
+                            id="accountId"
+                            style="font-size:10px;word-break:break-all;"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Kayıt Tarihi
+                        </span>
+
+                        <div
+                            class="info-value"
+                            id="createdAt"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Hesap Durumu
+                        </span>
+
+                        <div
+                            class="info-value verified"
+                        >
+                            ● Aktif
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ORDERS
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-orders"
+        >
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="title-icon">
+                        📦
+                    </span>
+
+                    Siparişlerim
+
+                </div>
+
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        Henüz sipariş vermedin
+                    </h3>
+
+                    <p>
+                        Satın aldığın ürünler burada listelenecek.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PURCHASES
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-purchases"
+        >
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="title-icon">
+                        🛒
+                    </span>
+
+                    Satın Aldıklarım
+
+                </div>
+
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🛒
+                    </div>
+
+                    <h3>
+                        Henüz satın aldığın ürün yok
+                    </h3>
+
+                    <p>
+                        Satın aldığın ürün ve hesaplar burada görünecek.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FAVORITES
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-favorites"
+        >
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="title-icon">
+                        ❤️
+                    </span>
+
+                    Favorilerim
+
+                </div>
+
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        ❤️
+                    </div>
+
+                    <h3>
+                        Henüz favorin yok
+                    </h3>
+
+                    <p>
+                        Beğendiğin ilanları favorilerine ekleyebilirsin.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             LISTINGS
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-listings"
+        >
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="title-icon">
+                        🏪
+                    </span>
+
+                    İlanlarım
+
+                </div>
+
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🏪
+                    </div>
+
+                    <h3>
+                        Henüz ilan oluşturmadın
+                    </h3>
+
+                    <p>
+                        Satmak istediğin ürünleri burada yönetebilirsin.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             BALANCE
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-balance"
+        >
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            💰
+                        </span>
+
+                        Bakiyem
+
+                    </div>
+
+
+                    <div
+                        style="
+                        font-size:32px;
+                        font-weight:900;
+                        margin:10px 0 20px;
+                        "
+                    >
+
+                        <span id="bigBalance">
+                            0,00
+                        </span>
+
+                        TL
+
+                    </div>
+
+
+                    <button
+                        class="save-btn"
+                        onclick="alert('Bakiye sistemi bir sonraki aşamada bağlanacak.')"
+                    >
+                        + Bakiye Yükle
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <span class="title-icon">
+                            💳
+                        </span>
+
+                        Bakiye Hareketleri
+
+                    </div>
+
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            💳
+                        </div>
+
+                        <h3>
+                            Henüz hareket yok
+                        </h3>
+
+                        <p>
+                            Bakiye işlemlerin burada görünecek.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SECURITY
+        ========================== -->
+
+        <section
+            class="page"
+            id="page-security"
+        >
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="title-icon">
+                        🔒
+                    </span>
+
+                    Hesap Güvenliği
+
+                </div>
+
+
+                <div class="security-row">
+
+                    <div>
+
+                        <strong>
+                            E-posta
+                        </strong>
+
+                        <span>
+                            Hesap e-posta adresi
+                        </span>
+
+                    </div>
+
+                    <span class="verified">
+                        ● Doğrulandı
+                    </span>
+
+                </div>
+
+
+                <div class="security-row">
+
+                    <div>
+
+                        <strong>
+                            Şifre
+                        </strong>
+
+                        <span>
+                            Şifrenizi düzenli olarak güncelleyin.
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="changePassword()"
+                    >
+                        Şifre Değiştir
+                    </button>
+
+                </div>
+
+
+                <div class="security-row">
+
+                    <div>
+
+                        <strong>
+                            Oturum
+                        </strong>
+
+                        <span>
+                            Bu cihazdaki aktif oturum
+                        </span>
+
+                    </div>
+
+                    <span class="verified">
+                        ● Aktif
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+    /* =========================
+       SUPABASE
+    ========================== */
+
+    const SUPABASE_URL =
+        "https://zvhtimtlxeizvtmmyfdr.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    let currentUser = null;
+
+
+    /* =========================
+       PAGE SYSTEM
+    ========================== */
+
+    function showPage(page) {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(section => {
+
+                section.classList.remove("active");
+
+            });
+
+
+        const selected =
+            document.getElementById(
+                "page-" + page
+            );
+
+
+        if (selected) {
+            selected.classList.add("active");
+        }
+
+
+        document
+            .querySelectorAll(".menu button")
+            .forEach(button => {
+
+                button.classList.remove("active");
+
+            });
+
+
+        const menuButton =
+            document.querySelector(
+                `.menu button[data-page="${page}"]`
+            );
+
+
+        if (menuButton) {
+            menuButton.classList.add("active");
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       USER
+    ========================== */
+
+    async function loadUser() {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !data.user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        currentUser = data.user;
+
+
+        const email =
+            currentUser.email || "";
+
+
+        const username =
+            currentUser.user_metadata?.username ||
+            email.split("@")[0] ||
+            "Kullanıcı";
+
+
+        /* USERNAME */
+
+        document
+            .getElementById("sidebarUsername")
+            .textContent = username;
+
+
+        document
+            .getElementById("welcomeUsername")
+            .textContent = username;
+
+
+        document
+            .getElementById("overviewUsername")
+            .textContent = username;
+
+
+        document
+            .getElementById("overviewEmail")
+            .textContent = email;
+
+
+        document
+            .getElementById("profileUsername")
+            .value = username;
+
+
+        document
+            .getElementById("profileEmail")
+            .value = email;
+
+
+        document
+            .getElementById("accountId")
+            .textContent = currentUser.id;
+
+
+        /* DATE */
+
+        const created =
+            new Date(
+                currentUser.created_at
+            );
+
+
+        document
+            .getElementById("createdAt")
+            .textContent =
+                created.toLocaleDateString(
+                    "tr-TR"
+                );
+
+
+        /* CURRENT DATE */
+
+        document
+            .getElementById("currentDate")
+            .textContent =
+                new Date().toLocaleDateString(
+                    "tr-TR"
+                );
+
+
+        /* BALANCE */
+
+        setBalance(0);
+
+    }
+
+
+    /* =========================
+       BALANCE
+    ========================== */
+
+    function setBalance(amount) {
+
+        const formatted =
+            Number(amount)
+                .toLocaleString(
+                    "tr-TR",
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                );
+
+
+        document
+            .getElementById("sidebarBalance")
+            .textContent = formatted;
+
+
+        document
+            .getElementById("overviewBalance")
+            .textContent = formatted;
+
+
+        document
+            .getElementById("bigBalance")
+            .textContent = formatted;
+
+    }
+
+
+    /* =========================
+       SAVE PROFILE
+    ========================== */
+
+    async function saveProfile() {
+
+        if (!currentUser) {
+            return;
+        }
+
+
+        const username =
+            document
+                .getElementById("profileUsername")
+                .value
+                .trim();
+
+
+        if (username.length < 3) {
+
+            alert(
+                "Kullanıcı adı en az 3 karakter olmalı."
+            );
+
+            return;
+
+        }
+
+
+        const {
+            error
+        } = await supabaseClient.auth.updateUser({
+
+            data: {
+                username: username
+            }
+
+        });
+
+
+        if (error) {
+
+            alert(
+                "Profil güncellenemedi: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById("sidebarUsername")
+            .textContent = username;
+
+
+        document
+            .getElementById("welcomeUsername")
+            .textContent = username;
+
+
+        document
+            .getElementById("overviewUsername")
+            .textContent = username;
+
+
+        alert(
+            "Profil bilgilerin güncellendi. 🍑"
+        );
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================== */
+
+    async function logoutUser() {
+
+        const confirmLogout =
+            confirm(
+                "Hesabından çıkış yapmak istediğine emin misin?"
+            );
+
+
+        if (!confirmLogout) {
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            alert(
+                "Çıkış yapılamadı: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    /* =========================
+       PASSWORD
+    ========================== */
+
+    async function changePassword() {
+
+        const email =
+            currentUser?.email;
+
+
+        if (!email) {
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.resetPasswordForEmail(
+                email,
+                {
+                    redirectTo:
+                        window.location.origin +
+                        "/reset-password.html"
+                }
+            );
+
+
+        if (error) {
+
+            alert(
+                "E-posta gönderilemedi: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Şifre değiştirme bağlantısı e-posta adresine gönderildi. 📧"
+        );
+
+    }
+
+
+    /* =========================
+       SESSION LISTENER
+    ========================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        (event, session) => {
+
+            if (
+                event === "SIGNED_OUT" ||
+                !session
+            ) {
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       START
+    ========================== */
+
+    loadUser();
+
+</script>
+
+
+</body>
+</html>
