@@ -3071,6 +3071,85 @@ return String(value ?? "")
 .replace(/'/g,"&#039;");
 
 }
+    <section id="supportAdminPanel">
+
+    <h2>💬 Canlı Destek</h2>
+
+    <div style="
+        display:grid;
+        grid-template-columns:280px 1fr;
+        gap:15px;
+        height:600px;
+    ">
+
+        <div
+            id="supportRooms"
+            style="
+                border:1px solid #ddd;
+                border-radius:12px;
+                overflow:auto;
+            "
+        ></div>
+
+        <div
+            style="
+                border:1px solid #ddd;
+                border-radius:12px;
+                display:flex;
+                flex-direction:column;
+            "
+        >
+
+            <div
+                id="supportAdminMessages"
+                style="
+                    flex:1;
+                    padding:15px;
+                    overflow:auto;
+                    background:#f5f5f5;
+                "
+            >
+                Bir konuşma seçin.
+            </div>
+
+            <div
+                style="
+                    display:flex;
+                    gap:8px;
+                    padding:10px;
+                "
+            >
+
+                <input
+                    id="supportAdminInput"
+                    placeholder="Cevabınızı yazın..."
+                    style="
+                        flex:1;
+                        padding:12px;
+                        border:1px solid #ddd;
+                        border-radius:10px;
+                    "
+                >
+
+                <button
+                    id="supportAdminSend"
+                    style="
+                        padding:0 20px;
+                        border:0;
+                        border-radius:10px;
+                        cursor:pointer;
+                    "
+                >
+                    Gönder
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 /* =====================================================
