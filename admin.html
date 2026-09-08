@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Paneli | KayısıHub</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #08080b;
+    --sidebar: #111116;
+    --card: #111116;
+    --card2: #17171f;
+    --orange: #ff8a00;
+    --orange2: #ffb347;
+    --text: #fff;
+    --muted: #9898a6;
+    --border: rgba(255,255,255,.08);
+    --green: #56e39f;
+    --red: #ff5757;
+    --yellow: #ffd166;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255,138,0,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(255,138,0,.07),
+            transparent 30%
+        ),
+        var(--bg);
+}
+
+.dashboard {
+    min-height: 100vh;
+    display: flex;
+    gap: 18px;
+    padding: 22px;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+
+    min-height: calc(100vh - 44px);
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,138,0,.06),
+            transparent 35%
+        ),
+        var(--sidebar);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.logo {
+    display: block;
+
+    margin-bottom: 28px;
+    padding-left: 5px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.admin-badge {
+    display: inline-block;
+
+    margin-left: 7px;
+    padding: 4px 7px;
+
+    border-radius: 6px;
+
+    background: rgba(255,138,0,.12);
+    color: var(--orange);
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+/* MENU */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-title {
+    margin: 12px 5px 6px;
+
+    color: #62626e;
+
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .9px;
+    text-transform: uppercase;
+}
+
+.menu button,
+.logout button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background: transparent;
+    color: var(--muted);
+
+    text-align: left;
+    font-size: 12px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.menu button:hover {
+    background: rgba(255,138,0,.055);
+    color: white;
+}
+
+.menu button.active {
+    color: var(--orange);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,138,0,.13),
+            rgba(255,138,0,.035)
+        );
+
+    border-color: rgba(255,138,0,.18);
+
+    box-shadow:
+        inset 3px 0 0 var(--orange);
+}
+
+.icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #1b1b22;
+}
+
+.menu button.active .icon {
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    color: #111;
+}
+
+.logout {
+    margin-top: auto;
+    padding-top: 15px;
+
+    border-top: 1px dashed rgba(255,255,255,.1);
+}
+
+.logout button:hover {
+    color: var(--red);
+    background: rgba(255,87,87,.06);
+}
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* HEADER */
+
+.header {
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px;
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(255,138,0,.16);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,138,0,.08),
+            transparent 40%
+        ),
+        var(--card);
+}
+
+.header h1 {
+    margin-bottom: 5px;
+
+    font-size: 20px;
+}
+
+.header h1 span {
+    color: var(--orange);
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.admin-info {
+    padding: 11px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: rgba(0,0,0,.16);
+
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* PAGES */
+
+.page {
+    display: none;
+    animation: fadeIn .25s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.stat {
+    padding: 18px;
+
+    border: 1px solid var(--border);
+    border-radius: 15px;
+
+    background: var(--card);
+
+    transition: .2s;
+}
+
+.stat:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,138,0,.2);
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+
+    background: rgba(255,138,0,.1);
+    color: var(--orange);
+}
+
+.stat span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.stat strong {
+    font-size: 20px;
+}
+
+/* CARDS */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 18px;
+}
+
+.card {
+    min-width: 0;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,138,0,.035),
+            transparent 30%
+        ),
+        var(--card);
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.18);
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.title-icon {
+    color: var(--orange);
+}
+
+/* TABLE */
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 11px;
+
+    color: #777783;
+
+    text-align: left;
+
+    font-size: 10px;
+    font-weight: bold;
+}
+
+td {
+    padding: 13px 11px;
+
+    border-top: 1px solid rgba(255,255,255,.05);
+
+    color: #ddd;
+
+    font-size: 11px;
+}
+
+tr:hover td {
+    background: rgba(255,138,0,.025);
+}
+
+/* STATUS */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.status.green {
+    background: rgba(86,227,159,.08);
+    color: var(--green);
+}
+
+.status.red {
+    background: rgba(255,87,87,.08);
+    color: var(--red);
+}
+
+.status.orange {
+    background: rgba(255,138,0,.08);
+    color: var(--orange);
+}
+
+.status.yellow {
+    background: rgba(255,209,102,.08);
+    color: var(--yellow);
+}
+
+/* BUTTONS */
+
+.action-btn {
+    padding: 7px 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background: var(--card2);
+    color: #ddd;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    border-color: rgba(255,138,0,.3);
+    color: var(--orange);
+}
+
+.action-btn.danger:hover {
+    color: var(--red);
+    border-color: rgba(255,87,87,.25);
+}
+
+/* SEARCH */
+
+.search {
+    width: 100%;
+
+    padding: 12px 14px;
+    margin-bottom: 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    outline: none;
+
+    background: var(--card2);
+    color: white;
+
+    font-size: 11px;
+}
+
+.search:focus {
+    border-color: var(--orange);
+}
+
+/* EMPTY */
+
+.empty {
+    padding: 45px 20px;
+
+    color: var(--muted);
+
+    text-align: center;
+}
+
+.empty-icon {
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.empty h3 {
+    margin-bottom: 6px;
+
+    color: white;
+    font-size: 14px;
+}
+
+.empty p {
+    color: #686873;
+    font-size: 11px;
+}
+
+/* NOTICE */
+
+.notice {
+    padding: 13px 15px;
+    margin-bottom: 15px;
+
+    border: 1px solid rgba(255,138,0,.15);
+    border-radius: 10px;
+
+    background: rgba(255,138,0,.06);
+
+    color: #ddd;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* MOBILE */
+
+@media(max-width: 1000px) {
+
+    .stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 750px) {
+
+    .dashboard {
+        display: block;
+        padding: 12px;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        margin-bottom: 15px;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .menu-title {
+        grid-column: 1 / -1;
+    }
+
+    .logout {
+        margin-top: 15px;
+    }
+
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 450px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .menu {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<a href="index.html" class="logo">
+    KAYISI<span>HUB</span> 🍑
+    <span class="admin-badge">ADMIN</span>
+</a>
+
+<nav class="menu">
+
+<div class="menu-title">
+    Yönetim
+</div>
+
+<button class="active"
+        data-page="dashboard"
+        onclick="showPage('dashboard')">
+    <span class="icon">📊</span>
+    Genel Bakış
+</button>
+
+<button data-page="users"
+        onclick="showPage('users')">
+    <span class="icon">👥</span>
+    Kullanıcılar
+</button>
+
+<button data-page="listings"
+        onclick="showPage('listings')">
+    <span class="icon">🏪</span>
+    İlanlar
+</button>
+
+<button data-page="orders"
+        onclick="showPage('orders')">
+    <span class="icon">📦</span>
+    Siparişler
+</button>
+
+<div class="menu-title">
+    Moderasyon
+</div>
+
+<button data-page="reports"
+        onclick="showPage('reports')">
+    <span class="icon">🚨</span>
+    Şikayetler
+</button>
+
+<button data-page="announcements"
+        onclick="showPage('announcements')">
+    <span class="icon">📢</span>
+    Duyurular
+</button>
+
+<div class="menu-title">
+    Finans
+</div>
+
+<button data-page="transactions"
+        onclick="showPage('transactions')">
+    <span class="icon">💰</span>
+    Bakiye Hareketleri
+</button>
+
+<div class="menu-title">
+    Sistem
+</div>
+
+<button data-page="logs"
+        onclick="showPage('logs')">
+    <span class="icon">📜</span>
+    Admin Logları
+</button>
+
+</nav>
+
+<div class="logout">
+
+<button onclick="logoutAdmin()">
+    <span class="icon">🚪</span>
+    Çıkış Yap
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="header">
+
+<div>
+
+<h1>
+    KayısıHub <span>Admin Paneli</span> 🍑
+</h1>
+
+<p>
+    Pazaryerini buradan yönetebilirsin.
+</p>
+
+</div>
+
+<div class="admin-info">
+    👑 <span id="adminEmail">Kontrol ediliyor...</span>
+</div>
+
+</header>
+
+
+<!-- DASHBOARD -->
+
+<section id="page-dashboard"
+         class="page active">
+
+<div class="stats">
+
+<div class="stat">
+    <div class="stat-icon">👥</div>
+    <span>Kullanıcılar</span>
+    <strong id="userCount">0</strong>
+</div>
+
+<div class="stat">
+    <div class="stat-icon">🏪</div>
+    <span>İlanlar</span>
+    <strong id="listingCount">0</strong>
+</div>
+
+<div class="stat">
+    <div class="stat-icon">📦</div>
+    <span>Siparişler</span>
+    <strong id="orderCount">0</strong>
+</div>
+
+<div class="stat">
+    <div class="stat-icon">🚨</div>
+    <span>Açık Şikayetler</span>
+    <strong id="reportCount">0</strong>
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">⚡</span>
+    Sistem Durumu
+</div>
+
+<div class="notice">
+    Supabase bağlantısı aktif.
+    Admin yetkilendirmen `profiles.role`
+    üzerinden kontrol ediliyor.
+</div>
+
+<div class="info">
+    🟢 Veritabanı bağlantısı kontrol edildi.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">🛡️</span>
+    Admin Yetkisi
+</div>
+
+<div class="notice">
+    Bu sayfaya yalnızca `role = admin`
+    olan kullanıcılar erişebilir.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- USERS -->
+
+<section id="page-users"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">👥</span>
+    Kullanıcı Yönetimi
+</div>
+
+<input
+    class="search"
+    id="userSearch"
+    placeholder="Kullanıcı ara..."
+    oninput="filterUsers()"
+>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Kullanıcı</th>
+<th>Durum</th>
+<th>Rol</th>
+<th>Bakiye</th>
+<th>Kayıt</th>
+<th>İşlem</th>
+</tr>
+</thead>
+
+<tbody id="usersTable">
+
+<tr>
+<td colspan="6">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LISTINGS -->
+
+<section id="page-listings"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">🏪</span>
+    İlan Yönetimi
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>İlan</th>
+<th>Satıcı</th>
+<th>Fiyat</th>
+<th>Durum</th>
+<th>Tarih</th>
+<th>İşlem</th>
+</tr>
+</thead>
+
+<tbody id="listingsTable">
+
+<tr>
+<td colspan="6">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="page-orders"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">📦</span>
+    Sipariş Yönetimi
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Sipariş</th>
+<th>Alıcı</th>
+<th>Satıcı</th>
+<th>Tutar</th>
+<th>Durum</th>
+<th>Tarih</th>
+</tr>
+</thead>
+
+<tbody id="ordersTable">
+
+<tr>
+<td colspan="6">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- REPORTS -->
+
+<section id="page-reports"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">🚨</span>
+    Şikayet Yönetimi
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Konu</th>
+<th>Bildiren</th>
+<th>Durum</th>
+<th>Tarih</th>
+<th>İşlem</th>
+</tr>
+</thead>
+
+<tbody id="reportsTable">
+
+<tr>
+<td colspan="5">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ANNOUNCEMENTS -->
+
+<section id="page-announcements"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">📢</span>
+    Duyurular
+</div>
+
+<div class="notice">
+    Duyuru sistemi bir sonraki aşamada
+    ana sayfaya bağlanacak.
+</div>
+
+<div class="empty">
+    <div class="empty-icon">📢</div>
+
+    <h3>
+        Duyuru yönetimi
+    </h3>
+
+    <p>
+        Buradan site genelinde duyuru yayınlayabileceğiz.
+    </p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TRANSACTIONS -->
+
+<section id="page-transactions"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">💰</span>
+    Bakiye Hareketleri
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Kullanıcı</th>
+<th>Tutar</th>
+<th>İşlem</th>
+<th>Açıklama</th>
+<th>Durum</th>
+<th>Tarih</th>
+</tr>
+</thead>
+
+<tbody id="transactionsTable">
+
+<tr>
+<td colspan="6">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LOGS -->
+
+<section id="page-logs"
+         class="page">
+
+<div class="card">
+
+<div class="card-title">
+    <span class="title-icon">📜</span>
+    Admin İşlem Kayıtları
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Admin</th>
+<th>İşlem</th>
+<th>Hedef</th>
+<th>Tarih</th>
+</tr>
+</thead>
+
+<tbody id="logsTable">
+
+<tr>
+<td colspan="4">
+    Yükleniyor...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://zvhtimtlxeizvtmmyfdr.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+let currentUser = null;
+let usersData = [];
+
+
+/* =========================
+   PAGE
+========================= */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
+
+    const selected =
+        document.getElementById(
+            "page-" + page
+        );
+
+    if (selected) {
+        selected.classList.add("active");
+    }
+
+    document
+        .querySelectorAll(".menu button")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
+
+    const button =
+        document.querySelector(
+            `.menu button[data-page="${page}"]`
+        );
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+    loadPageData(page);
+}
+
+
+/* =========================
+   ADMIN KONTROLÜ
+========================= */
+
+async function checkAdmin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    currentUser = data.user;
+
+    document.getElementById(
+        "adminEmail"
+    ).textContent =
+        currentUser.email || "Admin";
+
+
+    const {
+        data: profile,
+        error: profileError
+    } = await supabaseClient
+        .from("profiles")
+        .select("role,status")
+        .eq("id", currentUser.id)
+        .single();
+
+
+    if (
+        profileError ||
+        !profile ||
+        profile.role !== "admin"
+    ) {
+
+        alert(
+            "Bu sayfaya erişim yetkin yok."
+        );
+
+        window.location.href =
+            "index.html";
+
+        return false;
+    }
+
+
+    if (profile.status === "suspended") {
+
+        alert(
+            "Admin hesabın askıya alınmış."
+        );
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function loadDashboard() {
+
+    const [
+        users,
+        listings,
+        orders,
+        reports
+    ] = await Promise.all([
+
+        supabaseClient
+            .from("profiles")
+            .select("*", {
+                count: "exact",
+                head: true
+            }),
+
+        supabaseClient
+            .from("listings")
+            .select("*", {
+                count: "exact",
+                head: true
+            }),
+
+        supabaseClient
+            .from("orders")
+            .select("*", {
+                count: "exact",
+                head: true
+            }),
+
+        supabaseClient
+            .from("reports")
+            .select("*", {
+                count: "exact",
+                head: true
+            })
+            .eq("status", "open")
+
+    ]);
+
+
+    document.getElementById(
+        "userCount"
+    ).textContent = users.count || 0;
+
+    document.getElementById(
+        "listingCount"
+    ).textContent = listings.count || 0;
+
+    document.getElementById(
+        "orderCount"
+    ).textContent = orders.count || 0;
+
+    document.getElementById(
+        "reportCount"
+    ).textContent = reports.count || 0;
+}
+
+
+/* =========================
+   USERS
+========================= */
+
+async function loadUsers() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select(
+            "id,username,balance,role,status,created_at"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    if (error) {
+
+        document.getElementById(
+            "usersTable"
+        ).innerHTML =
+            `<tr><td colspan="6">
+                Kullanıcılar yüklenemedi.
+            </td></tr>`;
+
+        console.error(error);
+
+        return;
+    }
+
+
+    usersData = data || [];
+
+    renderUsers(usersData);
+}
+
+
+function renderUsers(users) {
+
+    const table =
+        document.getElementById(
+            "usersTable"
+        );
+
+
+    if (!users.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Kullanıcı bulunamadı.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        users.map(user => {
+
+            const statusClass =
+                user.status === "active"
+                    ? "green"
+                    : "red";
+
+            const roleClass =
+                user.role === "admin"
+                    ? "orange"
+                    : "yellow";
+
+            return `
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            user.username || "Kullanıcı"
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    <span class="status ${statusClass}">
+                        ${user.status}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="status ${roleClass}">
+                        ${user.role}
+                    </span>
+                </td>
+
+                <td>
+                    ${formatMoney(user.balance)} TL
+                </td>
+
+                <td>
+                    ${formatDate(user.created_at)}
+                </td>
+
+                <td>
+                    ${
+                        user.id === currentUser.id
+                        ? `<span class="status orange">
+                            Sen
+                           </span>`
+                        :
+                        `<button
+                            class="action-btn"
+                            onclick="toggleUserStatus(
+                                '${user.id}',
+                                '${user.status}'
+                            )">
+                            ${
+                                user.status === "active"
+                                ? "Askıya Al"
+                                : "Aktifleştir"
+                            }
+                         </button>`
+                    }
+                </td>
+
+            </tr>
+            `;
+        }).join("");
+}
+
+
+function filterUsers() {
+
+    const query =
+        document
+            .getElementById("userSearch")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        usersData.filter(user => {
+
+            return (
+                (user.username || "")
+                    .toLowerCase()
+                    .includes(query)
+            );
+
+        });
+
+
+    renderUsers(filtered);
+}
+
+
+/* =========================
+   USER STATUS
+========================= */
+
+async function toggleUserStatus(
+    userId,
+    currentStatus
+) {
+
+    const newStatus =
+        currentStatus === "active"
+            ? "suspended"
+            : "active";
+
+
+    const confirmed =
+        confirm(
+            newStatus === "suspended"
+            ? "Bu kullanıcıyı askıya almak istiyor musun?"
+            : "Bu kullanıcının hesabını aktifleştirmek istiyor musun?"
+        );
+
+
+    if (!confirmed) return;
+
+
+    const {
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .update({
+            status: newStatus
+        })
+        .eq("id", userId);
+
+
+    if (error) {
+
+        alert(
+            "İşlem başarısız: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    await writeAdminLog(
+        "user_status_change",
+        "profile",
+        userId,
+        {
+            status: newStatus
+        }
+    );
+
+
+    loadUsers();
+    loadDashboard();
+}
+
+
+/* =========================
+   LISTINGS
+========================= */
+
+async function loadListings() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("listings")
+        .select(
+            "id,title,price,status,created_at,seller_id"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    const table =
+        document.getElementById(
+            "listingsTable"
+        );
+
+
+    if (error) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                İlanlar yüklenemedi.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    if (!data.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Henüz ilan bulunmuyor.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        data.map(item => {
+
+            let statusClass =
+                "yellow";
+
+            if (item.status === "approved")
+                statusClass = "green";
+
+            if (
+                item.status === "rejected" ||
+                item.status === "removed"
+            )
+                statusClass = "red";
+
+            return `
+            <tr>
+
+                <td>
+                    ${escapeHtml(item.title)}
+                </td>
+
+                <td>
+                    ${item.seller_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    ${formatMoney(item.price)} TL
+                </td>
+
+                <td>
+                    <span class="status ${statusClass}">
+                        ${item.status}
+                    </span>
+                </td>
+
+                <td>
+                    ${formatDate(item.created_at)}
+                </td>
+
+                <td>
+
+                    ${
+                        item.status === "pending"
+                        ?
+                        `
+                        <button
+                            class="action-btn"
+                            onclick="updateListingStatus(
+                                '${item.id}',
+                                'approved'
+                            )">
+                            Onayla
+                        </button>
+
+                        <button
+                            class="action-btn danger"
+                            onclick="updateListingStatus(
+                                '${item.id}',
+                                'rejected'
+                            )">
+                            Reddet
+                        </button>
+                        `
+                        :
+                        "-"
+                    }
+
+                </td>
+
+            </tr>
+            `;
+        }).join("");
+}
+
+
+async function updateListingStatus(
+    id,
+    status
+) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("listings")
+        .update({
+            status: status
+        })
+        .eq("id", id);
+
+
+    if (error) {
+
+        alert(
+            "İlan güncellenemedi: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    await writeAdminLog(
+        "listing_status_change",
+        "listing",
+        id,
+        {
+            status: status
+        }
+    );
+
+
+    loadListings();
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+async function loadOrders() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("orders")
+        .select(
+            "id,buyer_id,seller_id,amount,status,created_at"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    const table =
+        document.getElementById(
+            "ordersTable"
+        );
+
+
+    if (error) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Siparişler yüklenemedi.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    if (!data.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Henüz sipariş bulunmuyor.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        data.map(order => {
+
+            return `
+            <tr>
+
+                <td>
+                    ${order.id.substring(0,8)}...
+                </td>
+
+                <td>
+                    ${order.buyer_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    ${order.seller_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    ${formatMoney(order.amount)} TL
+                </td>
+
+                <td>
+                    <span class="status orange">
+                        ${order.status}
+                    </span>
+                </td>
+
+                <td>
+                    ${formatDate(order.created_at)}
+                </td>
+
+            </tr>
+            `;
+
+        }).join("");
+}
+
+
+/* =========================
+   REPORTS
+========================= */
+
+async function loadReports() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("reports")
+        .select(
+            "id,subject,status,created_at,reporter_id"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    const table =
+        document.getElementById(
+            "reportsTable"
+        );
+
+
+    if (error) {
+
+        table.innerHTML =
+            `<tr><td colspan="5">
+                Şikayetler yüklenemedi.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    if (!data.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="5">
+                Henüz şikayet bulunmuyor.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        data.map(report => {
+
+            return `
+            <tr>
+
+                <td>
+                    ${escapeHtml(report.subject)}
+                </td>
+
+                <td>
+                    ${report.reporter_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    <span class="status yellow">
+                        ${report.status}
+                    </span>
+                </td>
+
+                <td>
+                    ${formatDate(report.created_at)}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="resolveReport(
+                            '${report.id}'
+                        )">
+                        Çözüldü
+                    </button>
+
+                </td>
+
+            </tr>
+            `;
+
+        }).join("");
+}
+
+
+async function resolveReport(id) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("reports")
+        .update({
+            status: "resolved"
+        })
+        .eq("id", id);
+
+
+    if (error) {
+
+        alert(
+            "Şikayet güncellenemedi."
+        );
+
+        return;
+    }
+
+
+    await writeAdminLog(
+        "report_resolved",
+        "report",
+        id,
+        {}
+    );
+
+
+    loadReports();
+    loadDashboard();
+}
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+async function loadTransactions() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("balance_transactions")
+        .select(
+            "id,user_id,amount,type,description,status,created_at"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    const table =
+        document.getElementById(
+            "transactionsTable"
+        );
+
+
+    if (error) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Hareketler yüklenemedi.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    if (!data.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="6">
+                Henüz bakiye hareketi yok.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        data.map(item => {
+
+            const amount =
+                Number(item.amount || 0);
+
+            const color =
+                amount >= 0
+                ? "green"
+                : "red";
+
+
+            return `
+            <tr>
+
+                <td>
+                    ${item.user_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    <span class="status ${color}">
+                        ${formatMoney(amount)} TL
+                    </span>
+                </td>
+
+                <td>
+                    ${escapeHtml(item.type)}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        item.description || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(item.status)}
+                </td>
+
+                <td>
+                    ${formatDate(item.created_at)}
+                </td>
+
+            </tr>
+            `;
+
+        }).join("");
+}
+
+
+/* =========================
+   LOGS
+========================= */
+
+async function loadLogs() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("admin_logs")
+        .select(
+            "id,admin_id,action,target_type,created_at"
+        )
+        .order(
+            "created_at",
+            { ascending: false }
+        )
+        .limit(100);
+
+
+    const table =
+        document.getElementById(
+            "logsTable"
+        );
+
+
+    if (error) {
+
+        table.innerHTML =
+            `<tr><td colspan="4">
+                Loglar yüklenemedi.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    if (!data.length) {
+
+        table.innerHTML =
+            `<tr><td colspan="4">
+                Henüz admin işlemi yok.
+            </td></tr>`;
+
+        return;
+    }
+
+
+    table.innerHTML =
+        data.map(log => {
+
+            return `
+            <tr>
+
+                <td>
+                    ${log.admin_id.substring(0,8)}...
+                </td>
+
+                <td>
+                    ${escapeHtml(log.action)}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        log.target_type || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(log.created_at)}
+                </td>
+
+            </tr>
+            `;
+
+        }).join("");
+}
+
+
+/* =========================
+   ADMIN LOG
+========================= */
+
+async function writeAdminLog(
+    action,
+    targetType,
+    targetId,
+    details
+) {
+
+    if (!currentUser) return;
+
+    await supabaseClient
+        .from("admin_logs")
+        .insert({
+
+            admin_id: currentUser.id,
+
+            action: action,
+
+            target_type: targetType,
+
+            target_id: targetId,
+
+            details: details
+
+        });
+}
+
+
+/* =========================
+   PAGE DATA
+========================= */
+
+function loadPageData(page) {
+
+    if (page === "dashboard")
+        loadDashboard();
+
+    if (page === "users")
+        loadUsers();
+
+    if (page === "listings")
+        loadListings();
+
+    if (page === "orders")
+        loadOrders();
+
+    if (page === "reports")
+        loadReports();
+
+    if (page === "transactions")
+        loadTransactions();
+
+    if (page === "logs")
+        loadLogs();
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logoutAdmin() {
+
+    const confirmed =
+        confirm(
+            "Admin hesabından çıkış yapmak istiyor musun?"
+        );
+
+    if (!confirmed) return;
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function formatMoney(value) {
+
+    return Number(value || 0)
+        .toLocaleString(
+            "tr-TR",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+}
+
+
+function formatDate(value) {
+
+    if (!value) return "-";
+
+    return new Date(value)
+        .toLocaleDateString(
+            "tr-TR"
+        );
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================
+   START
+========================= */
+
+(async function() {
+
+    const isAdmin =
+        await checkAdmin();
+
+    if (!isAdmin) return;
+
+    await loadDashboard();
+
+})();
+
+</script>
+
+</body>
+</html>
