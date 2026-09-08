@@ -7,630 +7,656 @@
 <title>Admin Paneli | KayısıHub</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-:root {
-    --bg: #08080b;
-    --sidebar: #111116;
-    --card: #111116;
-    --card2: #17171f;
-    --orange: #ff8a00;
-    --orange2: #ffb347;
-    --text: #fff;
-    --muted: #9898a6;
-    --border: rgba(255,255,255,.08);
-    --green: #56e39f;
-    --red: #ff5757;
-    --yellow: #ffd166;
+:root{
+    --bg:#08080b;
+    --sidebar:#111116;
+    --card:#111116;
+    --card2:#181820;
+    --orange:#ff8a00;
+    --orange2:#ffb347;
+    --text:#fff;
+    --muted:#9898a6;
+    --border:rgba(255,255,255,.08);
+    --green:#56e39f;
+    --red:#ff5757;
+    --yellow:#ffd166;
+    --blue:#65a9ff;
 }
 
-body {
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--text);
-
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
     background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(255,138,0,.12),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 90%,
-            rgba(255,138,0,.07),
-            transparent 30%
-        ),
+        radial-gradient(circle at 15% 10%,rgba(255,138,0,.12),transparent 30%),
+        radial-gradient(circle at 90% 90%,rgba(255,138,0,.07),transparent 30%),
         var(--bg);
 }
 
-.dashboard {
-    min-height: 100vh;
-    display: flex;
-    gap: 18px;
-    padding: 22px;
+button,input,textarea,select{
+    font-family:inherit;
 }
 
-/* SIDEBAR */
+.dashboard{
+    min-height:100vh;
+    display:flex;
+    gap:18px;
+    padding:22px;
+}
 
-.sidebar {
-    width: 250px;
-    flex-shrink: 0;
-
-    min-height: calc(100vh - 44px);
-
-    padding: 20px;
-
-    display: flex;
-    flex-direction: column;
-
+.sidebar{
+    width:250px;
+    flex-shrink:0;
+    min-height:calc(100vh - 44px);
+    padding:20px;
+    display:flex;
+    flex-direction:column;
     background:
-        linear-gradient(
-            145deg,
-            rgba(255,138,0,.06),
-            transparent 35%
-        ),
+        linear-gradient(145deg,rgba(255,138,0,.06),transparent 35%),
         var(--sidebar);
-
-    border: 1px solid var(--border);
-    border-radius: 18px;
-
-    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
-.logo {
-    display: block;
-
-    margin-bottom: 28px;
-    padding-left: 5px;
-
-    color: white;
-    text-decoration: none;
-
-    font-size: 23px;
-    font-weight: 900;
-    letter-spacing: -1px;
+.logo{
+    display:block;
+    margin-bottom:28px;
+    padding-left:5px;
+    color:white;
+    text-decoration:none;
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:-1px;
 }
 
-.logo span {
-    color: var(--orange);
+.logo span{
+    color:var(--orange);
 }
 
-.admin-badge {
-    display: inline-block;
-
-    margin-left: 7px;
-    padding: 4px 7px;
-
-    border-radius: 6px;
-
-    background: rgba(255,138,0,.12);
-    color: var(--orange);
-
-    font-size: 9px;
-    font-weight: 900;
+.admin-badge{
+    display:inline-block;
+    margin-left:7px;
+    padding:4px 7px;
+    border-radius:6px;
+    background:rgba(255,138,0,.12);
+    color:var(--orange)!important;
+    font-size:9px;
+    font-weight:900;
 }
 
-/* MENU */
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
 }
 
-.menu-title {
-    margin: 12px 5px 6px;
-
-    color: #62626e;
-
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: .9px;
-    text-transform: uppercase;
+.menu-title{
+    margin:12px 5px 6px;
+    color:#62626e;
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:.9px;
+    text-transform:uppercase;
 }
 
 .menu button,
-.logout button {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 11px;
-
-    border: 1px solid transparent;
-    border-radius: 10px;
-
-    background: transparent;
-    color: var(--muted);
-
-    text-align: left;
-    font-size: 12px;
-
-    cursor: pointer;
-    transition: .2s;
+.logout button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px;
+    border:1px solid transparent;
+    border-radius:10px;
+    background:transparent;
+    color:var(--muted);
+    text-align:left;
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.menu button:hover {
-    background: rgba(255,138,0,.055);
-    color: white;
+.menu button:hover{
+    background:rgba(255,138,0,.055);
+    color:white;
 }
 
-.menu button.active {
-    color: var(--orange);
-
+.menu button.active{
+    color:var(--orange);
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,138,0,.13),
-            rgba(255,138,0,.035)
-        );
-
-    border-color: rgba(255,138,0,.18);
-
-    box-shadow:
-        inset 3px 0 0 var(--orange);
+        linear-gradient(135deg,rgba(255,138,0,.13),rgba(255,138,0,.035));
+    border-color:rgba(255,138,0,.18);
+    box-shadow:inset 3px 0 0 var(--orange);
 }
 
-.icon {
-    width: 29px;
-    height: 29px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 9px;
-
-    background: #1b1b22;
+.icon{
+    width:29px;
+    height:29px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:9px;
+    background:#1b1b22;
 }
 
-.menu button.active .icon {
+.menu button.active .icon{
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:#111;
+}
+
+.logout{
+    margin-top:auto;
+    padding-top:15px;
+    border-top:1px dashed rgba(255,255,255,.1);
+}
+
+.logout button:hover{
+    color:var(--red);
+    background:rgba(255,87,87,.06);
+}
+
+.main{
+    flex:1;
+    min-width:0;
+}
+
+.header{
+    min-height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:24px;
+    margin-bottom:18px;
+    border:1px solid rgba(255,138,0,.16);
+    border-radius:18px;
     background:
-        linear-gradient(
-            135deg,
-            var(--orange),
-            var(--orange2)
-        );
-
-    color: #111;
-}
-
-.logout {
-    margin-top: auto;
-    padding-top: 15px;
-
-    border-top: 1px dashed rgba(255,255,255,.1);
-}
-
-.logout button:hover {
-    color: var(--red);
-    background: rgba(255,87,87,.06);
-}
-
-/* MAIN */
-
-.main {
-    flex: 1;
-    min-width: 0;
-}
-
-/* HEADER */
-
-.header {
-    min-height: 100px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 24px;
-    margin-bottom: 18px;
-
-    border: 1px solid rgba(255,138,0,.16);
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,138,0,.08),
-            transparent 40%
-        ),
+        linear-gradient(145deg,rgba(255,138,0,.08),transparent 40%),
         var(--card);
 }
 
-.header h1 {
-    margin-bottom: 5px;
-
-    font-size: 20px;
+.header h1{
+    margin-bottom:5px;
+    font-size:20px;
 }
 
-.header h1 span {
-    color: var(--orange);
+.header h1 span{
+    color:var(--orange);
 }
 
-.header p {
-    color: var(--muted);
-    font-size: 11px;
+.header p{
+    color:var(--muted);
+    font-size:11px;
 }
 
-.admin-info {
-    padding: 11px 14px;
-
-    border: 1px solid var(--border);
-    border-radius: 10px;
-
-    background: rgba(0,0,0,.16);
-
-    color: var(--muted);
-    font-size: 11px;
+.admin-info{
+    padding:11px 14px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:rgba(0,0,0,.16);
+    color:var(--muted);
+    font-size:11px;
 }
 
-/* PAGES */
-
-.page {
-    display: none;
-    animation: fadeIn .25s ease;
+.page{
+    display:none;
+    animation:fadeIn .25s ease;
 }
 
-.page.active {
-    display: block;
+.page.active{
+    display:block;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(6px);
     }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
-/* STATS */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0,1fr));
-
-    gap: 15px;
-
-    margin-bottom: 18px;
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:15px;
+    margin-bottom:18px;
 }
 
-.stat {
-    padding: 18px;
-
-    border: 1px solid var(--border);
-    border-radius: 15px;
-
-    background: var(--card);
-
-    transition: .2s;
+.stat{
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:var(--card);
+    transition:.2s;
 }
 
-.stat:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255,138,0,.2);
+.stat:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,138,0,.2);
 }
 
-.stat-icon {
-    width: 36px;
-    height: 36px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 12px;
-
-    border-radius: 10px;
-
-    background: rgba(255,138,0,.1);
-    color: var(--orange);
+.stat-icon{
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:12px;
+    border-radius:10px;
+    background:rgba(255,138,0,.1);
+    color:var(--orange);
 }
 
-.stat span {
-    display: block;
-
-    margin-bottom: 5px;
-
-    color: var(--muted);
-
-    font-size: 10px;
+.stat span{
+    display:block;
+    margin-bottom:5px;
+    color:var(--muted);
+    font-size:10px;
 }
 
-.stat strong {
-    font-size: 20px;
+.stat strong{
+    font-size:20px;
 }
 
-/* CARDS */
-
-.grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
-    gap: 18px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
 }
 
-.card {
-    min-width: 0;
-
-    padding: 20px;
-
-    border: 1px solid var(--border);
-    border-radius: 16px;
-
+.card{
+    min-width:0;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:16px;
     background:
-        linear-gradient(
-            145deg,
-            rgba(255,138,0,.035),
-            transparent 30%
-        ),
+        linear-gradient(145deg,rgba(255,138,0,.035),transparent 30%),
         var(--card);
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.18);
+    box-shadow:0 15px 50px rgba(0,0,0,.18);
 }
 
-.full {
-    grid-column: 1 / -1;
+.full{
+    grid-column:1/-1;
 }
 
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-
-    border-bottom: 1px solid var(--border);
-
-    font-size: 13px;
-    font-weight: 800;
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding-bottom:15px;
+    margin-bottom:15px;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+    font-weight:800;
 }
 
-.title-icon {
-    color: var(--orange);
+.title-icon{
+    color:var(--orange);
 }
 
-/* TABLE */
-
-.table-wrap {
-    width: 100%;
-    overflow-x: auto;
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+table{
+    width:100%;
+    border-collapse:collapse;
 }
 
-th {
-    padding: 11px;
-
-    color: #777783;
-
-    text-align: left;
-
-    font-size: 10px;
-    font-weight: bold;
+th{
+    padding:11px;
+    color:#777783;
+    text-align:left;
+    font-size:10px;
+    font-weight:bold;
+    white-space:nowrap;
 }
 
-td {
-    padding: 13px 11px;
-
-    border-top: 1px solid rgba(255,255,255,.05);
-
-    color: #ddd;
-
-    font-size: 11px;
+td{
+    padding:13px 11px;
+    border-top:1px solid rgba(255,255,255,.05);
+    color:#ddd;
+    font-size:11px;
 }
 
-tr:hover td {
-    background: rgba(255,138,0,.025);
+tr:hover td{
+    background:rgba(255,138,0,.025);
 }
 
-/* STATUS */
-
-.status {
-    display: inline-block;
-
-    padding: 5px 8px;
-
-    border-radius: 20px;
-
-    font-size: 9px;
-    font-weight: bold;
+.status{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:bold;
 }
 
-.status.green {
-    background: rgba(86,227,159,.08);
-    color: var(--green);
+.status.green{
+    background:rgba(86,227,159,.08);
+    color:var(--green);
 }
 
-.status.red {
-    background: rgba(255,87,87,.08);
-    color: var(--red);
+.status.red{
+    background:rgba(255,87,87,.08);
+    color:var(--red);
 }
 
-.status.orange {
-    background: rgba(255,138,0,.08);
-    color: var(--orange);
+.status.orange{
+    background:rgba(255,138,0,.08);
+    color:var(--orange);
 }
 
-.status.yellow {
-    background: rgba(255,209,102,.08);
-    color: var(--yellow);
+.status.yellow{
+    background:rgba(255,209,102,.08);
+    color:var(--yellow);
 }
 
-/* BUTTONS */
-
-.action-btn {
-    padding: 7px 10px;
-
-    border: 1px solid var(--border);
-    border-radius: 7px;
-
-    background: var(--card2);
-    color: #ddd;
-
-    font-size: 9px;
-    font-weight: bold;
-
-    cursor: pointer;
+.status.blue{
+    background:rgba(101,169,255,.08);
+    color:var(--blue);
 }
 
-.action-btn:hover {
-    border-color: rgba(255,138,0,.3);
-    color: var(--orange);
+.action-btn{
+    padding:7px 10px;
+    margin:2px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:var(--card2);
+    color:#ddd;
+    font-size:9px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.action-btn.danger:hover {
-    color: var(--red);
-    border-color: rgba(255,87,87,.25);
+.action-btn:hover{
+    border-color:rgba(255,138,0,.3);
+    color:var(--orange);
 }
 
-/* SEARCH */
-
-.search {
-    width: 100%;
-
-    padding: 12px 14px;
-    margin-bottom: 15px;
-
-    border: 1px solid var(--border);
-    border-radius: 10px;
-
-    outline: none;
-
-    background: var(--card2);
-    color: white;
-
-    font-size: 11px;
+.action-btn.danger:hover{
+    color:var(--red);
+    border-color:rgba(255,87,87,.25);
 }
 
-.search:focus {
-    border-color: var(--orange);
+.action-btn.success:hover{
+    color:var(--green);
+    border-color:rgba(86,227,159,.25);
 }
 
-/* EMPTY */
-
-.empty {
-    padding: 45px 20px;
-
-    color: var(--muted);
-
-    text-align: center;
+.search{
+    width:100%;
+    padding:12px 14px;
+    margin-bottom:15px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    outline:none;
+    background:var(--card2);
+    color:white;
+    font-size:11px;
 }
 
-.empty-icon {
-    margin-bottom: 10px;
-    font-size: 35px;
+.search:focus{
+    border-color:var(--orange);
 }
 
-.empty h3 {
-    margin-bottom: 6px;
-
-    color: white;
-    font-size: 14px;
+.notice{
+    padding:13px 15px;
+    margin-bottom:15px;
+    border:1px solid rgba(255,138,0,.15);
+    border-radius:10px;
+    background:rgba(255,138,0,.06);
+    color:#ddd;
+    font-size:11px;
+    line-height:1.5;
 }
 
-.empty p {
-    color: #686873;
-    font-size: 11px;
+.empty{
+    padding:45px 20px;
+    color:var(--muted);
+    text-align:center;
 }
 
-/* NOTICE */
-
-.notice {
-    padding: 13px 15px;
-    margin-bottom: 15px;
-
-    border: 1px solid rgba(255,138,0,.15);
-    border-radius: 10px;
-
-    background: rgba(255,138,0,.06);
-
-    color: #ddd;
-
-    font-size: 11px;
-    line-height: 1.5;
+.empty-icon{
+    margin-bottom:10px;
+    font-size:35px;
 }
 
-/* MOBILE */
+.empty h3{
+    margin-bottom:6px;
+    color:white;
+    font-size:14px;
+}
 
-@media(max-width: 1000px) {
+.empty p{
+    color:#686873;
+    font-size:11px;
+}
 
-    .stats {
-        grid-template-columns: repeat(2,1fr);
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.form-group.full-width{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    color:#888894;
+    font-size:10px;
+}
+
+.form-control{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    outline:none;
+    background:var(--card2);
+    color:white;
+    font-size:11px;
+}
+
+.form-control:focus{
+    border-color:var(--orange);
+}
+
+textarea.form-control{
+    min-height:100px;
+    resize:vertical;
+}
+
+.form-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:15px;
+}
+
+.primary-btn{
+    padding:10px 15px;
+    border:0;
+    border-radius:9px;
+    background:linear-gradient(135deg,var(--orange),var(--orange2));
+    color:#111;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.primary-btn:hover{
+    opacity:.9;
+}
+
+.secondary-btn{
+    padding:10px 15px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--card2);
+    color:#ddd;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(6px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:520px;
+    padding:22px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#111116;
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-header h2{
+    font-size:16px;
+}
+
+.close-btn{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:8px;
+    background:var(--card2);
+    color:#aaa;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.close-btn:hover{
+    color:white;
+}
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:1000;
+    max-width:350px;
+    padding:13px 16px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#181820;
+    color:white;
+    font-size:11px;
+    box-shadow:0 15px 50px rgba(0,0,0,.4);
+    opacity:0;
+    transform:translateY(15px);
+    pointer-events:none;
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.toast.success{
+    border-color:rgba(86,227,159,.3);
+}
+
+.toast.error{
+    border-color:rgba(255,87,87,.3);
+}
+
+@media(max-width:1000px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .grid {
-        grid-template-columns: 1fr;
+    .grid{
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width: 750px) {
-
-    .dashboard {
-        display: block;
-        padding: 12px;
+@media(max-width:750px){
+    .dashboard{
+        display:block;
+        padding:12px;
     }
 
-    .sidebar {
-        width: 100%;
-        min-height: auto;
-        margin-bottom: 15px;
+    .sidebar{
+        width:100%;
+        min-height:auto;
+        margin-bottom:15px;
     }
 
-    .menu {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
+    .menu{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .menu-title {
-        grid-column: 1 / -1;
+    .menu-title{
+        grid-column:1/-1;
     }
 
-    .logout {
-        margin-top: 15px;
+    .logout{
+        margin-top:15px;
     }
 
-    .header {
-        align-items: flex-start;
-        flex-direction: column;
+    .header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width: 450px) {
-
-    .stats {
-        grid-template-columns: 1fr;
+@media(max-width:450px){
+    .stats{
+        grid-template-columns:1fr;
     }
 
-    .menu {
-        grid-template-columns: 1fr;
+    .menu{
+        grid-template-columns:1fr;
     }
 
-    .card {
-        padding: 15px;
+    .card{
+        padding:15px;
     }
 }
 </style>
@@ -639,8 +665,6 @@ tr:hover td {
 <body>
 
 <div class="dashboard">
-
-<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -651,105 +675,90 @@ tr:hover td {
 
 <nav class="menu">
 
-<div class="menu-title">
-    Yönetim
-</div>
+<div class="menu-title">Yönetim</div>
 
-<button class="active"
-        data-page="dashboard"
-        onclick="showPage('dashboard')">
-    <span class="icon">📊</span>
-    Genel Bakış
+<button class="active" data-page="dashboard"
+onclick="showPage('dashboard')">
+<span class="icon">📊</span>
+Genel Bakış
 </button>
 
 <button data-page="users"
-        onclick="showPage('users')">
-    <span class="icon">👥</span>
-    Kullanıcılar
+onclick="showPage('users')">
+<span class="icon">👥</span>
+Kullanıcılar
 </button>
 
 <button data-page="listings"
-        onclick="showPage('listings')">
-    <span class="icon">🏪</span>
-    İlanlar
+onclick="showPage('listings')">
+<span class="icon">🏪</span>
+İlanlar
 </button>
 
 <button data-page="orders"
-        onclick="showPage('orders')">
-    <span class="icon">📦</span>
-    Siparişler
+onclick="showPage('orders')">
+<span class="icon">📦</span>
+Siparişler
 </button>
 
-<div class="menu-title">
-    Moderasyon
-</div>
+<div class="menu-title">Moderasyon</div>
 
 <button data-page="reports"
-        onclick="showPage('reports')">
-    <span class="icon">🚨</span>
-    Şikayetler
+onclick="showPage('reports')">
+<span class="icon">🚨</span>
+Şikayetler
 </button>
 
 <button data-page="announcements"
-        onclick="showPage('announcements')">
-    <span class="icon">📢</span>
-    Duyurular
+onclick="showPage('announcements')">
+<span class="icon">📢</span>
+Duyurular
 </button>
 
-<div class="menu-title">
-    Finans
-</div>
+<div class="menu-title">Finans</div>
 
 <button data-page="transactions"
-        onclick="showPage('transactions')">
-    <span class="icon">💰</span>
-    Bakiye Hareketleri
+onclick="showPage('transactions')">
+<span class="icon">💰</span>
+Bakiye Hareketleri
 </button>
 
-<div class="menu-title">
-    Sistem
-</div>
+<div class="menu-title">Sistem</div>
 
 <button data-page="logs"
-        onclick="showPage('logs')">
-    <span class="icon">📜</span>
-    Admin Logları
+onclick="showPage('logs')">
+<span class="icon">📜</span>
+Admin Logları
 </button>
 
 </nav>
 
 <div class="logout">
-
 <button onclick="logoutAdmin()">
-    <span class="icon">🚪</span>
-    Çıkış Yap
+<span class="icon">🚪</span>
+Çıkış Yap
 </button>
-
 </div>
 
 </aside>
 
-
-<!-- MAIN -->
 
 <main class="main">
 
 <header class="header">
 
 <div>
-
 <h1>
-    KayısıHub <span>Admin Paneli</span> 🍑
+KayısıHub <span>Admin Paneli</span> 🍑
 </h1>
 
 <p>
-    Pazaryerini buradan yönetebilirsin.
+Pazaryerini buradan yönetebilirsin.
 </p>
-
 </div>
 
 <div class="admin-info">
-    👑 <span id="adminEmail">Kontrol ediliyor...</span>
+👑 <span id="adminEmail">Kontrol ediliyor...</span>
 </div>
 
 </header>
@@ -757,55 +766,52 @@ tr:hover td {
 
 <!-- DASHBOARD -->
 
-<section id="page-dashboard"
-         class="page active">
+<section id="page-dashboard" class="page active">
 
 <div class="stats">
 
 <div class="stat">
-    <div class="stat-icon">👥</div>
-    <span>Kullanıcılar</span>
-    <strong id="userCount">0</strong>
+<div class="stat-icon">👥</div>
+<span>Kullanıcılar</span>
+<strong id="userCount">0</strong>
 </div>
 
 <div class="stat">
-    <div class="stat-icon">🏪</div>
-    <span>İlanlar</span>
-    <strong id="listingCount">0</strong>
+<div class="stat-icon">🏪</div>
+<span>İlanlar</span>
+<strong id="listingCount">0</strong>
 </div>
 
 <div class="stat">
-    <div class="stat-icon">📦</div>
-    <span>Siparişler</span>
-    <strong id="orderCount">0</strong>
+<div class="stat-icon">📦</div>
+<span>Siparişler</span>
+<strong id="orderCount">0</strong>
 </div>
 
 <div class="stat">
-    <div class="stat-icon">🚨</div>
-    <span>Açık Şikayetler</span>
-    <strong id="reportCount">0</strong>
+<div class="stat-icon">🚨</div>
+<span>Açık Şikayetler</span>
+<strong id="reportCount">0</strong>
 </div>
 
 </div>
-
 
 <div class="grid">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">⚡</span>
-    Sistem Durumu
+<span class="title-icon">⚡</span>
+Sistem Durumu
 </div>
 
 <div class="notice">
-    Supabase bağlantısı aktif.
-    Admin yetkilendirmen `profiles.role`
-    üzerinden kontrol ediliyor.
+Supabase bağlantısı aktif.
+Admin yetkilendirmesi kontrol ediliyor.
 </div>
 
-<div class="info">
-    🟢 Veritabanı bağlantısı kontrol edildi.
+<div style="color:#56e39f;font-size:11px;">
+🟢 Sistem çalışıyor
 </div>
 
 </div>
@@ -814,13 +820,17 @@ tr:hover td {
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">🛡️</span>
-    Admin Yetkisi
+<span class="title-icon">🛡️</span>
+Admin Yetkisi
 </div>
 
 <div class="notice">
-    Bu sayfaya yalnızca `role = admin`
-    olan kullanıcılar erişebilir.
+Bu panel yalnızca <b>admin</b> rolüne sahip
+kullanıcılar tarafından kullanılabilir.
+</div>
+
+<div style="color:#ff8a00;font-size:11px;">
+👑 Yetkili panel
 </div>
 
 </div>
@@ -832,21 +842,20 @@ tr:hover td {
 
 <!-- USERS -->
 
-<section id="page-users"
-         class="page">
+<section id="page-users" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">👥</span>
-    Kullanıcı Yönetimi
+<span class="title-icon">👥</span>
+Kullanıcı Yönetimi
 </div>
 
 <input
-    class="search"
-    id="userSearch"
-    placeholder="Kullanıcı ara..."
-    oninput="filterUsers()"
+class="search"
+id="userSearch"
+placeholder="Kullanıcı ara..."
+oninput="filterUsers()"
 >
 
 <div class="table-wrap">
@@ -865,13 +874,9 @@ tr:hover td {
 </thead>
 
 <tbody id="usersTable">
-
 <tr>
-<td colspan="6">
-    Yükleniyor...
-</td>
+<td colspan="6">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -885,14 +890,13 @@ tr:hover td {
 
 <!-- LISTINGS -->
 
-<section id="page-listings"
-         class="page">
+<section id="page-listings" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">🏪</span>
-    İlan Yönetimi
+<span class="title-icon">🏪</span>
+İlan Yönetimi
 </div>
 
 <div class="table-wrap">
@@ -911,13 +915,9 @@ tr:hover td {
 </thead>
 
 <tbody id="listingsTable">
-
 <tr>
-<td colspan="6">
-    Yükleniyor...
-</td>
+<td colspan="6">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -931,14 +931,13 @@ tr:hover td {
 
 <!-- ORDERS -->
 
-<section id="page-orders"
-         class="page">
+<section id="page-orders" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">📦</span>
-    Sipariş Yönetimi
+<span class="title-icon">📦</span>
+Sipariş Yönetimi
 </div>
 
 <div class="table-wrap">
@@ -957,13 +956,9 @@ tr:hover td {
 </thead>
 
 <tbody id="ordersTable">
-
 <tr>
-<td colspan="6">
-    Yükleniyor...
-</td>
+<td colspan="6">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -977,14 +972,13 @@ tr:hover td {
 
 <!-- REPORTS -->
 
-<section id="page-reports"
-         class="page">
+<section id="page-reports" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">🚨</span>
-    Şikayet Yönetimi
+<span class="title-icon">🚨</span>
+Şikayet Yönetimi
 </div>
 
 <div class="table-wrap">
@@ -1002,13 +996,9 @@ tr:hover td {
 </thead>
 
 <tbody id="reportsTable">
-
 <tr>
-<td colspan="5">
-    Yükleniyor...
-</td>
+<td colspan="5">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -1022,31 +1012,91 @@ tr:hover td {
 
 <!-- ANNOUNCEMENTS -->
 
-<section id="page-announcements"
-         class="page">
+<section id="page-announcements" class="page">
+
+<div class="grid">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">📢</span>
-    Duyurular
+<span class="title-icon">📢</span>
+Yeni Duyuru
 </div>
 
-<div class="notice">
-    Duyuru sistemi bir sonraki aşamada
-    ana sayfaya bağlanacak.
+<div class="form-grid">
+
+<div class="form-group full-width">
+<label>Başlık</label>
+<input
+id="announcementTitle"
+class="form-control"
+placeholder="Duyuru başlığı"
+>
 </div>
 
-<div class="empty">
-    <div class="empty-icon">📢</div>
+<div class="form-group">
+<label>Tür</label>
 
-    <h3>
-        Duyuru yönetimi
-    </h3>
+<select id="announcementType" class="form-control">
 
-    <p>
-        Buradan site genelinde duyuru yayınlayabileceğiz.
-    </p>
+<option value="info">Bilgi</option>
+<option value="success">Başarılı</option>
+<option value="warning">Uyarı</option>
+<option value="danger">Önemli</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+<label>Durum</label>
+
+<select id="announcementActive" class="form-control">
+
+<option value="true">Aktif</option>
+<option value="false">Pasif</option>
+
+</select>
+
+</div>
+
+<div class="form-group full-width">
+<label>İçerik</label>
+
+<textarea
+id="announcementContent"
+class="form-control"
+placeholder="Duyuru içeriği..."
+></textarea>
+
+</div>
+
+</div>
+
+<div class="form-actions">
+
+<button
+class="primary-btn"
+onclick="createAnnouncement()">
+📢 Duyuru Yayınla
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+<span class="title-icon">📋</span>
+Mevcut Duyurular
+</div>
+
+<div id="announcementList">
+Yükleniyor...
+</div>
+
 </div>
 
 </div>
@@ -1056,14 +1106,13 @@ tr:hover td {
 
 <!-- TRANSACTIONS -->
 
-<section id="page-transactions"
-         class="page">
+<section id="page-transactions" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">💰</span>
-    Bakiye Hareketleri
+<span class="title-icon">💰</span>
+Bakiye Hareketleri
 </div>
 
 <div class="table-wrap">
@@ -1082,13 +1131,9 @@ tr:hover td {
 </thead>
 
 <tbody id="transactionsTable">
-
 <tr>
-<td colspan="6">
-    Yükleniyor...
-</td>
+<td colspan="6">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -1102,14 +1147,13 @@ tr:hover td {
 
 <!-- LOGS -->
 
-<section id="page-logs"
-         class="page">
+<section id="page-logs" class="page">
 
 <div class="card">
 
 <div class="card-title">
-    <span class="title-icon">📜</span>
-    Admin İşlem Kayıtları
+<span class="title-icon">📜</span>
+Admin İşlem Kayıtları
 </div>
 
 <div class="table-wrap">
@@ -1126,13 +1170,9 @@ tr:hover td {
 </thead>
 
 <tbody id="logsTable">
-
 <tr>
-<td colspan="4">
-    Yükleniyor...
-</td>
+<td colspan="4">Yükleniyor...</td>
 </tr>
-
 </tbody>
 
 </table>
@@ -1144,1121 +1184,1907 @@ tr:hover td {
 </section>
 
 </main>
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2 id="modalTitle">
+Detay
+</h2>
+
+<button
+class="close-btn"
+onclick="closeModal()">
+×
+</button>
 
 </div>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =========================
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
-    "https://zvhtimtlxeizvtmmyfdr.supabase.co";
+"https://zvhtimtlxeizvtmmyfdr.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
+"sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 let currentUser = null;
 let usersData = [];
 
 
-/* =========================
+/* =====================================================
    PAGE
-========================= */
+===================================================== */
 
-function showPage(page) {
+function showPage(page){
 
-    document
-        .querySelectorAll(".page")
-        .forEach(section => {
-            section.classList.remove("active");
-        });
+document
+.querySelectorAll(".page")
+.forEach(section=>{
+section.classList.remove("active");
+});
 
-    const selected =
-        document.getElementById(
-            "page-" + page
-        );
+const selected =
+document.getElementById(
+"page-"+page
+);
 
-    if (selected) {
-        selected.classList.add("active");
-    }
+if(selected){
+selected.classList.add("active");
+}
 
-    document
-        .querySelectorAll(".menu button")
-        .forEach(button => {
-            button.classList.remove("active");
-        });
+document
+.querySelectorAll(".menu button")
+.forEach(button=>{
+button.classList.remove("active");
+});
 
-    const button =
-        document.querySelector(
-            `.menu button[data-page="${page}"]`
-        );
+const button =
+document.querySelector(
+`.menu button[data-page="${page}"]`
+);
 
-    if (button) {
-        button.classList.add("active");
-    }
+if(button){
+button.classList.add("active");
+}
 
-    loadPageData(page);
+loadPageData(page);
+
 }
 
 
-/* =========================
+/* =====================================================
    ADMIN KONTROLÜ
-========================= */
+===================================================== */
 
-async function checkAdmin() {
+async function checkAdmin(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getUser();
+const {
+data,
+error
+} =
+await supabaseClient.auth.getUser();
 
-    if (error || !data.user) {
+if(error || !data.user){
 
-        window.location.href =
-            "login.html";
+window.location.href="login.html";
+return false;
+}
 
-        return false;
-    }
+currentUser=data.user;
 
-    currentUser = data.user;
-
-    document.getElementById(
-        "adminEmail"
-    ).textContent =
-        currentUser.email || "Admin";
-
-
-    const {
-        data: profile,
-        error: profileError
-    } = await supabaseClient
-        .from("profiles")
-        .select("role,status")
-        .eq("id", currentUser.id)
-        .single();
+document.getElementById(
+"adminEmail"
+).textContent=
+currentUser.email || "Admin";
 
 
-    if (
-        profileError ||
-        !profile ||
-        profile.role !== "admin"
-    ) {
-
-        alert(
-            "Bu sayfaya erişim yetkin yok."
-        );
-
-        window.location.href =
-            "index.html";
-
-        return false;
-    }
+const {
+data:profile,
+error:profileError
+} =
+await supabaseClient
+.from("profiles")
+.select("role,status")
+.eq("id",currentUser.id)
+.single();
 
 
-    if (profile.status === "suspended") {
+if(
+profileError ||
+!profile ||
+profile.role!=="admin"
+){
 
-        alert(
-            "Admin hesabın askıya alınmış."
-        );
+alert(
+"Bu sayfaya erişim yetkin yok."
+);
 
-        await supabaseClient.auth.signOut();
+window.location.href="index.html";
 
-        window.location.href =
-            "login.html";
-
-        return false;
-    }
-
-
-    return true;
+return false;
 }
 
 
-/* =========================
+if(profile.status==="suspended"){
+
+alert(
+"Admin hesabın askıya alınmış."
+);
+
+await supabaseClient.auth.signOut();
+
+window.location.href="login.html";
+
+return false;
+}
+
+return true;
+
+}
+
+
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
-async function loadDashboard() {
+async function loadDashboard(){
 
-    const [
-        users,
-        listings,
-        orders,
-        reports
-    ] = await Promise.all([
+const [
+users,
+listings,
+orders,
+reports
+] =
+await Promise.all([
 
-        supabaseClient
-            .from("profiles")
-            .select("*", {
-                count: "exact",
-                head: true
-            }),
+supabaseClient
+.from("profiles")
+.select("*",{count:"exact",head:true}),
 
-        supabaseClient
-            .from("listings")
-            .select("*", {
-                count: "exact",
-                head: true
-            }),
+supabaseClient
+.from("listings")
+.select("*",{count:"exact",head:true}),
 
-        supabaseClient
-            .from("orders")
-            .select("*", {
-                count: "exact",
-                head: true
-            }),
+supabaseClient
+.from("orders")
+.select("*",{count:"exact",head:true}),
 
-        supabaseClient
-            .from("reports")
-            .select("*", {
-                count: "exact",
-                head: true
-            })
-            .eq("status", "open")
+supabaseClient
+.from("reports")
+.select("*",{count:"exact",head:true})
+.eq("status","open")
 
-    ]);
+]);
 
 
-    document.getElementById(
-        "userCount"
-    ).textContent = users.count || 0;
+document.getElementById(
+"userCount"
+).textContent=
+users.count || 0;
 
-    document.getElementById(
-        "listingCount"
-    ).textContent = listings.count || 0;
+document.getElementById(
+"listingCount"
+).textContent=
+listings.count || 0;
 
-    document.getElementById(
-        "orderCount"
-    ).textContent = orders.count || 0;
+document.getElementById(
+"orderCount"
+).textContent=
+orders.count || 0;
 
-    document.getElementById(
-        "reportCount"
-    ).textContent = reports.count || 0;
+document.getElementById(
+"reportCount"
+).textContent=
+reports.count || 0;
+
 }
 
 
-/* =========================
+/* =====================================================
    USERS
-========================= */
+===================================================== */
 
-async function loadUsers() {
+async function loadUsers(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
-        .select(
-            "id,username,balance,role,status,created_at"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    if (error) {
-
-        document.getElementById(
-            "usersTable"
-        ).innerHTML =
-            `<tr><td colspan="6">
-                Kullanıcılar yüklenemedi.
-            </td></tr>`;
-
-        console.error(error);
-
-        return;
-    }
+const {
+data,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select(
+"id,username,balance,role,status,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    usersData = data || [];
+const table =
+document.getElementById(
+"usersTable"
+);
 
-    renderUsers(usersData);
+if(error){
+
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Kullanıcılar yüklenemedi.
+</td>
+</tr>`;
+
+console.error(error);
+return;
+}
+
+usersData=data || [];
+
+renderUsers(usersData);
+
 }
 
 
-function renderUsers(users) {
+function renderUsers(users){
 
-    const table =
-        document.getElementById(
-            "usersTable"
-        );
+const table =
+document.getElementById(
+"usersTable"
+);
 
+if(!users.length){
 
-    if (!users.length) {
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Kullanıcı bulunamadı.
+</td>
+</tr>`;
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Kullanıcı bulunamadı.
-            </td></tr>`;
-
-        return;
-    }
-
-
-    table.innerHTML =
-        users.map(user => {
-
-            const statusClass =
-                user.status === "active"
-                    ? "green"
-                    : "red";
-
-            const roleClass =
-                user.role === "admin"
-                    ? "orange"
-                    : "yellow";
-
-            return `
-            <tr>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            user.username || "Kullanıcı"
-                        )}
-                    </strong>
-                </td>
-
-                <td>
-                    <span class="status ${statusClass}">
-                        ${user.status}
-                    </span>
-                </td>
-
-                <td>
-                    <span class="status ${roleClass}">
-                        ${user.role}
-                    </span>
-                </td>
-
-                <td>
-                    ${formatMoney(user.balance)} TL
-                </td>
-
-                <td>
-                    ${formatDate(user.created_at)}
-                </td>
-
-                <td>
-                    ${
-                        user.id === currentUser.id
-                        ? `<span class="status orange">
-                            Sen
-                           </span>`
-                        :
-                        `<button
-                            class="action-btn"
-                            onclick="toggleUserStatus(
-                                '${user.id}',
-                                '${user.status}'
-                            )">
-                            ${
-                                user.status === "active"
-                                ? "Askıya Al"
-                                : "Aktifleştir"
-                            }
-                         </button>`
-                    }
-                </td>
-
-            </tr>
-            `;
-        }).join("");
+return;
 }
 
 
-function filterUsers() {
+table.innerHTML=
+users.map(user=>{
 
-    const query =
-        document
-            .getElementById("userSearch")
-            .value
-            .toLowerCase()
-            .trim();
+const statusClass =
+user.status==="active"
+?"green"
+:"red";
 
+const roleClass =
+user.role==="admin"
+?"orange"
+:"yellow";
 
-    const filtered =
-        usersData.filter(user => {
+return `
 
-            return (
-                (user.username || "")
-                    .toLowerCase()
-                    .includes(query)
-            );
+<tr>
 
-        });
+<td>
+<strong>
+${escapeHtml(
+user.username || "Kullanıcı"
+)}
+</strong>
+</td>
 
+<td>
+<span class="status ${statusClass}">
+${escapeHtml(user.status)}
+</span>
+</td>
 
-    renderUsers(filtered);
+<td>
+<span class="status ${roleClass}">
+${escapeHtml(user.role)}
+</span>
+</td>
+
+<td>
+${formatMoney(user.balance)} TL
+</td>
+
+<td>
+${formatDate(user.created_at)}
+</td>
+
+<td>
+
+${
+user.id===currentUser.id
+
+?
+
+`<span class="status orange">
+Sen
+</span>`
+
+:
+
+`
+
+<button
+class="action-btn"
+onclick="toggleUserStatus(
+'${user.id}',
+'${user.status}'
+)">
+${
+user.status==="active"
+?"Askıya Al"
+:"Aktifleştir"
+}
+</button>
+
+<button
+class="action-btn"
+onclick="changeUserRole(
+'${user.id}',
+'${user.role}'
+)">
+${
+user.role==="admin"
+?"Kullanıcı Yap"
+:"Admin Yap"
+}
+</button>
+
+<button
+class="action-btn"
+onclick="showUserDetails(
+'${user.id}'
+)">
+Detay
+</button>
+
+`
+
+}
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
 }
 
 
-/* =========================
+function filterUsers(){
+
+const query =
+document
+.getElementById("userSearch")
+.value
+.toLowerCase()
+.trim();
+
+const filtered =
+usersData.filter(user=>{
+
+return (
+(user.username || "")
+.toLowerCase()
+.includes(query)
+);
+
+});
+
+renderUsers(filtered);
+
+}
+
+
+/* =====================================================
    USER STATUS
-========================= */
+===================================================== */
 
 async function toggleUserStatus(
-    userId,
-    currentStatus
-) {
+userId,
+currentStatus
+){
 
-    const newStatus =
-        currentStatus === "active"
-            ? "suspended"
-            : "active";
+const newStatus =
+currentStatus==="active"
+?"suspended"
+:"active";
 
+const confirmed =
+confirm(
+newStatus==="suspended"
+?
+"Bu kullanıcıyı askıya almak istiyor musun?"
+:
+"Bu kullanıcıyı aktifleştirmek istiyor musun?"
+);
 
-    const confirmed =
-        confirm(
-            newStatus === "suspended"
-            ? "Bu kullanıcıyı askıya almak istiyor musun?"
-            : "Bu kullanıcının hesabını aktifleştirmek istiyor musun?"
-        );
-
-
-    if (!confirmed) return;
-
-
-    const {
-        error
-    } = await supabaseClient
-        .from("profiles")
-        .update({
-            status: newStatus
-        })
-        .eq("id", userId);
+if(!confirmed)return;
 
 
-    if (error) {
-
-        alert(
-            "İşlem başarısız: " +
-            error.message
-        );
-
-        return;
-    }
-
-
-    await writeAdminLog(
-        "user_status_change",
-        "profile",
-        userId,
-        {
-            status: newStatus
-        }
-    );
+const {
+error
+} =
+await supabaseClient
+.from("profiles")
+.update({
+status:newStatus
+})
+.eq("id",userId);
 
 
-    loadUsers();
-    loadDashboard();
+if(error){
+
+showToast(
+"İşlem başarısız: "+error.message,
+"error"
+);
+
+return;
 }
 
 
-/* =========================
+await writeAdminLog(
+"user_status_change",
+"profile",
+userId,
+{status:newStatus}
+);
+
+showToast(
+"Durum güncellendi.",
+"success"
+);
+
+loadUsers();
+loadDashboard();
+
+}
+
+
+/* =====================================================
+   USER ROLE
+===================================================== */
+
+async function changeUserRole(
+userId,
+currentRole
+){
+
+const newRole =
+currentRole==="admin"
+?"user"
+:"admin";
+
+const confirmed =
+confirm(
+newRole==="admin"
+?
+"Bu kullanıcıyı admin yapmak istiyor musun?"
+:
+"Bu kullanıcının admin yetkisini kaldırmak istiyor musun?"
+);
+
+if(!confirmed)return;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("profiles")
+.update({
+role:newRole
+})
+.eq("id",userId);
+
+
+if(error){
+
+showToast(
+"Rol değiştirilemedi: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+await writeAdminLog(
+"user_role_change",
+"profile",
+userId,
+{role:newRole}
+);
+
+showToast(
+"Rol güncellendi.",
+"success"
+);
+
+loadUsers();
+
+}
+
+
+/* =====================================================
+   USER DETAILS
+===================================================== */
+
+function showUserDetails(userId){
+
+const user =
+usersData.find(
+u=>u.id===userId
+);
+
+if(!user)return;
+
+document.getElementById(
+"modalTitle"
+).textContent=
+"Kullanıcı Detayı";
+
+document.getElementById(
+"modalContent"
+).innerHTML=
+
+`
+
+<div class="notice">
+
+<strong>
+${escapeHtml(
+user.username || "Kullanıcı"
+)}
+</strong>
+
+<br><br>
+
+ID:
+${escapeHtml(user.id)}
+
+<br><br>
+
+Rol:
+${escapeHtml(user.role)}
+
+<br><br>
+
+Durum:
+${escapeHtml(user.status)}
+
+<br><br>
+
+Bakiye:
+${formatMoney(user.balance)} TL
+
+<br><br>
+
+Kayıt:
+${formatDate(user.created_at)}
+
+</div>
+
+`;
+
+openModal();
+
+}
+
+
+/* =====================================================
    LISTINGS
-========================= */
+===================================================== */
 
-async function loadListings() {
+async function loadListings(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("listings")
-        .select(
-            "id,title,price,status,created_at,seller_id"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    const table =
-        document.getElementById(
-            "listingsTable"
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("listings")
+.select(
+"id,title,price,status,created_at,seller_id"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    if (error) {
+const table =
+document.getElementById(
+"listingsTable"
+);
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                İlanlar yüklenemedi.
-            </td></tr>`;
+if(error){
 
-        return;
-    }
+table.innerHTML=
+`<tr>
+<td colspan="6">
+İlanlar yüklenemedi.
+</td>
+</tr>`;
 
-
-    if (!data.length) {
-
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Henüz ilan bulunmuyor.
-            </td></tr>`;
-
-        return;
-    }
-
-
-    table.innerHTML =
-        data.map(item => {
-
-            let statusClass =
-                "yellow";
-
-            if (item.status === "approved")
-                statusClass = "green";
-
-            if (
-                item.status === "rejected" ||
-                item.status === "removed"
-            )
-                statusClass = "red";
-
-            return `
-            <tr>
-
-                <td>
-                    ${escapeHtml(item.title)}
-                </td>
-
-                <td>
-                    ${item.seller_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    ${formatMoney(item.price)} TL
-                </td>
-
-                <td>
-                    <span class="status ${statusClass}">
-                        ${item.status}
-                    </span>
-                </td>
-
-                <td>
-                    ${formatDate(item.created_at)}
-                </td>
-
-                <td>
-
-                    ${
-                        item.status === "pending"
-                        ?
-                        `
-                        <button
-                            class="action-btn"
-                            onclick="updateListingStatus(
-                                '${item.id}',
-                                'approved'
-                            )">
-                            Onayla
-                        </button>
-
-                        <button
-                            class="action-btn danger"
-                            onclick="updateListingStatus(
-                                '${item.id}',
-                                'rejected'
-                            )">
-                            Reddet
-                        </button>
-                        `
-                        :
-                        "-"
-                    }
-
-                </td>
-
-            </tr>
-            `;
-        }).join("");
+return;
 }
 
+if(!data || !data.length){
+
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Henüz ilan bulunmuyor.
+</td>
+</tr>`;
+
+return;
+}
+
+
+table.innerHTML=
+data.map(item=>{
+
+let statusClass="yellow";
+
+if(item.status==="approved")
+statusClass="green";
+
+if(
+item.status==="rejected" ||
+item.status==="removed"
+)
+statusClass="red";
+
+if(item.status==="sold")
+statusClass="blue";
+
+
+let actions="-";
+
+
+if(item.status==="pending"){
+
+actions=`
+
+<button
+class="action-btn success"
+onclick="updateListingStatus(
+'${item.id}',
+'approved'
+)">
+Onayla
+</button>
+
+<button
+class="action-btn danger"
+onclick="updateListingStatus(
+'${item.id}',
+'rejected'
+)">
+Reddet
+</button>
+
+`;
+
+}
+
+if(item.status==="approved"){
+
+actions=`
+
+<button
+class="action-btn danger"
+onclick="updateListingStatus(
+'${item.id}',
+'removed'
+)">
+Kaldır
+</button>
+
+`;
+
+}
+
+
+return `
+
+<tr>
+
+<td>
+<strong>
+${escapeHtml(item.title)}
+</strong>
+</td>
+
+<td>
+${item.seller_id.substring(0,8)}...
+</td>
+
+<td>
+${formatMoney(item.price)} TL
+</td>
+
+<td>
+<span class="status ${statusClass}">
+${escapeHtml(item.status)}
+</span>
+</td>
+
+<td>
+${formatDate(item.created_at)}
+</td>
+
+<td>
+${actions}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   LISTING STATUS
+===================================================== */
 
 async function updateListingStatus(
-    id,
-    status
-) {
+id,
+status
+){
 
-    const {
-        error
-    } = await supabaseClient
-        .from("listings")
-        .update({
-            status: status
-        })
-        .eq("id", id);
+const confirmed =
+confirm(
+"İlan durumunu '"+status+"' olarak değiştirmek istiyor musun?"
+);
+
+if(!confirmed)return;
 
 
-    if (error) {
-
-        alert(
-            "İlan güncellenemedi: " +
-            error.message
-        );
-
-        return;
-    }
-
-
-    await writeAdminLog(
-        "listing_status_change",
-        "listing",
-        id,
-        {
-            status: status
-        }
-    );
+const {
+error
+} =
+await supabaseClient
+.from("listings")
+.update({
+status:status
+})
+.eq("id",id);
 
 
-    loadListings();
+if(error){
+
+showToast(
+"İlan güncellenemedi: "+error.message,
+"error"
+);
+
+return;
 }
 
 
-/* =========================
+await writeAdminLog(
+"listing_status_change",
+"listing",
+id,
+{status:status}
+);
+
+showToast(
+"İlan durumu güncellendi.",
+"success"
+);
+
+loadListings();
+loadDashboard();
+
+}
+
+
+/* =====================================================
    ORDERS
-========================= */
+===================================================== */
 
-async function loadOrders() {
+async function loadOrders(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("orders")
-        .select(
-            "id,buyer_id,seller_id,amount,status,created_at"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    const table =
-        document.getElementById(
-            "ordersTable"
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,buyer_id,seller_id,amount,status,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    if (error) {
+const table =
+document.getElementById(
+"ordersTable"
+);
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Siparişler yüklenemedi.
-            </td></tr>`;
+if(error){
 
-        return;
-    }
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Siparişler yüklenemedi.
+</td>
+</tr>`;
 
+return;
+}
 
-    if (!data.length) {
+if(!data || !data.length){
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Henüz sipariş bulunmuyor.
-            </td></tr>`;
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Henüz sipariş bulunmuyor.
+</td>
+</tr>`;
 
-        return;
-    }
-
-
-    table.innerHTML =
-        data.map(order => {
-
-            return `
-            <tr>
-
-                <td>
-                    ${order.id.substring(0,8)}...
-                </td>
-
-                <td>
-                    ${order.buyer_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    ${order.seller_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    ${formatMoney(order.amount)} TL
-                </td>
-
-                <td>
-                    <span class="status orange">
-                        ${order.status}
-                    </span>
-                </td>
-
-                <td>
-                    ${formatDate(order.created_at)}
-                </td>
-
-            </tr>
-            `;
-
-        }).join("");
+return;
 }
 
 
-/* =========================
+table.innerHTML=
+data.map(order=>{
+
+let statusClass="orange";
+
+if(order.status==="completed")
+statusClass="green";
+
+if(
+order.status==="cancelled" ||
+order.status==="refunded"
+)
+statusClass="red";
+
+if(order.status==="disputed")
+statusClass="red";
+
+return `
+
+<tr>
+
+<td>
+${order.id.substring(0,8)}...
+</td>
+
+<td>
+${order.buyer_id.substring(0,8)}...
+</td>
+
+<td>
+${order.seller_id.substring(0,8)}...
+</td>
+
+<td>
+${formatMoney(order.amount)} TL
+</td>
+
+<td>
+<span class="status ${statusClass}">
+${escapeHtml(order.status)}
+</span>
+</td>
+
+<td>
+${formatDate(order.created_at)}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
    REPORTS
-========================= */
+===================================================== */
 
-async function loadReports() {
+async function loadReports(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("reports")
-        .select(
-            "id,subject,status,created_at,reporter_id"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    const table =
-        document.getElementById(
-            "reportsTable"
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("reports")
+.select(
+"id,subject,description,status,created_at,reporter_id"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    if (error) {
+const table =
+document.getElementById(
+"reportsTable"
+);
 
-        table.innerHTML =
-            `<tr><td colspan="5">
-                Şikayetler yüklenemedi.
-            </td></tr>`;
+if(error){
 
-        return;
-    }
+table.innerHTML=
+`<tr>
+<td colspan="5">
+Şikayetler yüklenemedi.
+</td>
+</tr>`;
 
+return;
+}
 
-    if (!data.length) {
+if(!data || !data.length){
 
-        table.innerHTML =
-            `<tr><td colspan="5">
-                Henüz şikayet bulunmuyor.
-            </td></tr>`;
+table.innerHTML=
+`<tr>
+<td colspan="5">
+Henüz şikayet bulunmuyor.
+</td>
+</tr>`;
 
-        return;
-    }
-
-
-    table.innerHTML =
-        data.map(report => {
-
-            return `
-            <tr>
-
-                <td>
-                    ${escapeHtml(report.subject)}
-                </td>
-
-                <td>
-                    ${report.reporter_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    <span class="status yellow">
-                        ${report.status}
-                    </span>
-                </td>
-
-                <td>
-                    ${formatDate(report.created_at)}
-                </td>
-
-                <td>
-
-                    <button
-                        class="action-btn"
-                        onclick="resolveReport(
-                            '${report.id}'
-                        )">
-                        Çözüldü
-                    </button>
-
-                </td>
-
-            </tr>
-            `;
-
-        }).join("");
+return;
 }
 
 
-async function resolveReport(id) {
+table.innerHTML=
+data.map(report=>{
 
-    const {
-        error
-    } = await supabaseClient
-        .from("reports")
-        .update({
-            status: "resolved"
-        })
-        .eq("id", id);
+let statusClass="yellow";
 
+if(report.status==="resolved")
+statusClass="green";
 
-    if (error) {
+if(report.status==="rejected")
+statusClass="red";
 
-        alert(
-            "Şikayet güncellenemedi."
-        );
-
-        return;
-    }
+if(report.status==="investigating")
+statusClass="orange";
 
 
-    await writeAdminLog(
-        "report_resolved",
-        "report",
-        id,
-        {}
-    );
+return `
 
+<tr>
 
-    loadReports();
-    loadDashboard();
+<td>
+<strong>
+${escapeHtml(report.subject)}
+</strong>
+</td>
+
+<td>
+${report.reporter_id.substring(0,8)}...
+</td>
+
+<td>
+<span class="status ${statusClass}">
+${escapeHtml(report.status)}
+</span>
+</td>
+
+<td>
+${formatDate(report.created_at)}
+</td>
+
+<td>
+
+<button
+class="action-btn"
+onclick="showReport(
+'${report.id}',
+'${escapeHtml(report.subject)}',
+'${escapeHtml(report.description)}'
+)">
+Detay
+</button>
+
+${
+report.status!=="resolved"
+?
+
+`
+
+<button
+class="action-btn success"
+onclick="resolveReport(
+'${report.id}'
+)">
+Çözüldü
+</button>
+
+`
+
+:""
+
+}
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
 }
 
 
-/* =========================
+/* =====================================================
+   REPORT DETAIL
+===================================================== */
+
+function showReport(
+id,
+subject,
+description
+){
+
+document.getElementById(
+"modalTitle"
+).textContent=
+"Şikayet Detayı";
+
+document.getElementById(
+"modalContent"
+).innerHTML=
+
+`
+
+<div class="notice">
+
+<strong>
+${subject}
+</strong>
+
+<br><br>
+
+${description}
+
+</div>
+
+<button
+class="primary-btn"
+onclick="resolveReport('${id}');closeModal();">
+Şikayeti Çözüldü Yap
+</button>
+
+`;
+
+openModal();
+
+}
+
+
+/* =====================================================
+   RESOLVE REPORT
+===================================================== */
+
+async function resolveReport(id){
+
+const {
+error
+} =
+await supabaseClient
+.from("reports")
+.update({
+status:"resolved"
+})
+.eq("id",id);
+
+
+if(error){
+
+showToast(
+"Şikayet güncellenemedi: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+await writeAdminLog(
+"report_resolved",
+"report",
+id,
+{}
+);
+
+showToast(
+"Şikayet çözüldü.",
+"success"
+);
+
+loadReports();
+loadDashboard();
+
+}
+
+
+/* =====================================================
+   ANNOUNCEMENTS
+===================================================== */
+
+async function loadAnnouncements(){
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("announcements")
+.select(
+"id,title,content,type,is_active,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(50);
+
+
+const container =
+document.getElementById(
+"announcementList"
+);
+
+if(error){
+
+container.innerHTML=
+`<div class="empty">
+Duyurular yüklenemedi.
+</div>`;
+
+return;
+}
+
+if(!data || !data.length){
+
+container.innerHTML=
+`<div class="empty">
+<div class="empty-icon">📢</div>
+<h3>Henüz duyuru yok</h3>
+<p>İlk duyurunu buradan oluşturabilirsin.</p>
+</div>`;
+
+return;
+}
+
+
+container.innerHTML=
+data.map(item=>{
+
+const typeClass =
+item.type==="success"
+?"green"
+:
+item.type==="danger"
+?"red"
+:
+item.type==="warning"
+?"yellow"
+:
+"orange";
+
+
+return `
+
+<div
+style="
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,.06);
+">
+
+<div style="
+display:flex;
+justify-content:space-between;
+gap:10px;
+align-items:center;
+">
+
+<strong style="font-size:12px;">
+${escapeHtml(item.title)}
+</strong>
+
+<span class="status ${typeClass}">
+${item.is_active?"Aktif":"Pasif"}
+</span>
+
+</div>
+
+<div style="
+margin-top:8px;
+color:#888894;
+font-size:10px;
+line-height:1.5;
+">
+
+${escapeHtml(item.content)}
+
+</div>
+
+<div style="
+margin-top:10px;
+">
+
+<button
+class="action-btn"
+onclick="toggleAnnouncement(
+'${item.id}',
+${item.is_active}
+)">
+${item.is_active?"Pasifleştir":"Aktifleştir"}
+</button>
+
+<button
+class="action-btn danger"
+onclick="deleteAnnouncement(
+'${item.id}'
+)">
+Sil
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   CREATE ANNOUNCEMENT
+===================================================== */
+
+async function createAnnouncement(){
+
+const title =
+document.getElementById(
+"announcementTitle"
+).value.trim();
+
+const content =
+document.getElementById(
+"announcementContent"
+).value.trim();
+
+const type =
+document.getElementById(
+"announcementType"
+).value;
+
+const isActive =
+document.getElementById(
+"announcementActive"
+).value==="true";
+
+
+if(!title || !content){
+
+showToast(
+"Başlık ve içerik gerekli.",
+"error"
+);
+
+return;
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("announcements")
+.insert({
+
+title:title,
+content:content,
+type:type,
+is_active:isActive,
+created_by:currentUser.id
+
+});
+
+
+if(error){
+
+showToast(
+"Duyuru oluşturulamadı: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+await writeAdminLog(
+"announcement_created",
+"announcement",
+null,
+{title:title}
+);
+
+
+document.getElementById(
+"announcementTitle"
+).value="";
+
+document.getElementById(
+"announcementContent"
+).value="";
+
+
+showToast(
+"Duyuru oluşturuldu.",
+"success"
+);
+
+loadAnnouncements();
+
+}
+
+
+/* =====================================================
+   ANNOUNCEMENT TOGGLE
+===================================================== */
+
+async function toggleAnnouncement(
+id,
+currentState
+){
+
+const {
+error
+} =
+await supabaseClient
+.from("announcements")
+.update({
+is_active:!currentState
+})
+.eq("id",id);
+
+
+if(error){
+
+showToast(
+"Duyuru güncellenemedi.",
+"error"
+);
+
+return;
+}
+
+
+await writeAdminLog(
+"announcement_status_change",
+"announcement",
+id,
+{is_active:!currentState}
+);
+
+loadAnnouncements();
+
+}
+
+
+/* =====================================================
+   DELETE ANNOUNCEMENT
+===================================================== */
+
+async function deleteAnnouncement(id){
+
+const confirmed =
+confirm(
+"Bu duyuruyu silmek istediğine emin misin?"
+);
+
+if(!confirmed)return;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("announcements")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+showToast(
+"Duyuru silinemedi: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+await writeAdminLog(
+"announcement_deleted",
+"announcement",
+id,
+{}
+);
+
+showToast(
+"Duyuru silindi.",
+"success"
+);
+
+loadAnnouncements();
+
+}
+
+
+/* =====================================================
    TRANSACTIONS
-========================= */
+===================================================== */
 
-async function loadTransactions() {
+async function loadTransactions(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("balance_transactions")
-        .select(
-            "id,user_id,amount,type,description,status,created_at"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    const table =
-        document.getElementById(
-            "transactionsTable"
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("balance_transactions")
+.select(
+"id,user_id,amount,type,description,status,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    if (error) {
+const table =
+document.getElementById(
+"transactionsTable"
+);
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Hareketler yüklenemedi.
-            </td></tr>`;
+if(error){
 
-        return;
-    }
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Hareketler yüklenemedi.
+</td>
+</tr>`;
 
+return;
+}
 
-    if (!data.length) {
+if(!data || !data.length){
 
-        table.innerHTML =
-            `<tr><td colspan="6">
-                Henüz bakiye hareketi yok.
-            </td></tr>`;
+table.innerHTML=
+`<tr>
+<td colspan="6">
+Henüz bakiye hareketi yok.
+</td>
+</tr>`;
 
-        return;
-    }
-
-
-    table.innerHTML =
-        data.map(item => {
-
-            const amount =
-                Number(item.amount || 0);
-
-            const color =
-                amount >= 0
-                ? "green"
-                : "red";
-
-
-            return `
-            <tr>
-
-                <td>
-                    ${item.user_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    <span class="status ${color}">
-                        ${formatMoney(amount)} TL
-                    </span>
-                </td>
-
-                <td>
-                    ${escapeHtml(item.type)}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        item.description || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(item.status)}
-                </td>
-
-                <td>
-                    ${formatDate(item.created_at)}
-                </td>
-
-            </tr>
-            `;
-
-        }).join("");
+return;
 }
 
 
-/* =========================
+table.innerHTML=
+data.map(item=>{
+
+const amount =
+Number(item.amount || 0);
+
+const color =
+amount>=0
+?"green"
+:"red";
+
+
+return `
+
+<tr>
+
+<td>
+${item.user_id.substring(0,8)}...
+</td>
+
+<td>
+<span class="status ${color}">
+${formatMoney(amount)} TL
+</span>
+</td>
+
+<td>
+${escapeHtml(item.type)}
+</td>
+
+<td>
+${escapeHtml(item.description || "-")}
+</td>
+
+<td>
+${escapeHtml(item.status)}
+</td>
+
+<td>
+${formatDate(item.created_at)}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
    LOGS
-========================= */
+===================================================== */
 
-async function loadLogs() {
+async function loadLogs(){
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("admin_logs")
-        .select(
-            "id,admin_id,action,target_type,created_at"
-        )
-        .order(
-            "created_at",
-            { ascending: false }
-        )
-        .limit(100);
-
-
-    const table =
-        document.getElementById(
-            "logsTable"
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("admin_logs")
+.select(
+"id,admin_id,action,target_type,target_id,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(100);
 
 
-    if (error) {
+const table =
+document.getElementById(
+"logsTable"
+);
 
-        table.innerHTML =
-            `<tr><td colspan="4">
-                Loglar yüklenemedi.
-            </td></tr>`;
+if(error){
 
-        return;
-    }
+table.innerHTML=
+`<tr>
+<td colspan="4">
+Loglar yüklenemedi.
+</td>
+</tr>`;
 
+return;
+}
 
-    if (!data.length) {
+if(!data || !data.length){
 
-        table.innerHTML =
-            `<tr><td colspan="4">
-                Henüz admin işlemi yok.
-            </td></tr>`;
+table.innerHTML=
+`<tr>
+<td colspan="4">
+Henüz admin işlemi yok.
+</td>
+</tr>`;
 
-        return;
-    }
-
-
-    table.innerHTML =
-        data.map(log => {
-
-            return `
-            <tr>
-
-                <td>
-                    ${log.admin_id.substring(0,8)}...
-                </td>
-
-                <td>
-                    ${escapeHtml(log.action)}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        log.target_type || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(log.created_at)}
-                </td>
-
-            </tr>
-            `;
-
-        }).join("");
+return;
 }
 
 
-/* =========================
+table.innerHTML=
+data.map(log=>{
+
+return `
+
+<tr>
+
+<td>
+${log.admin_id.substring(0,8)}...
+</td>
+
+<td>
+${escapeHtml(log.action)}
+</td>
+
+<td>
+${escapeHtml(log.target_type || "-")}
+${log.target_id
+?
+" ("+log.target_id.substring(0,8)+"...)"
+:
+""}
+</td>
+
+<td>
+${formatDate(log.created_at)}
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
    ADMIN LOG
-========================= */
+===================================================== */
 
 async function writeAdminLog(
-    action,
-    targetType,
-    targetId,
-    details
-) {
+action,
+targetType,
+targetId,
+details
+){
 
-    if (!currentUser) return;
+if(!currentUser)return;
 
-    await supabaseClient
-        .from("admin_logs")
-        .insert({
+const {
+error
+} =
+await supabaseClient
+.from("admin_logs")
+.insert({
 
-            admin_id: currentUser.id,
+admin_id:currentUser.id,
+action:action,
+target_type:targetType,
+target_id:targetId,
+details:details || {}
 
-            action: action,
+});
 
-            target_type: targetType,
 
-            target_id: targetId,
+if(error){
+console.error(
+"Admin log error:",
+error
+);
+}
 
-            details: details
-
-        });
 }
 
 
-/* =========================
+/* =====================================================
    PAGE DATA
-========================= */
+===================================================== */
 
-function loadPageData(page) {
+function loadPageData(page){
 
-    if (page === "dashboard")
-        loadDashboard();
+if(page==="dashboard")
+loadDashboard();
 
-    if (page === "users")
-        loadUsers();
+if(page==="users")
+loadUsers();
 
-    if (page === "listings")
-        loadListings();
+if(page==="listings")
+loadListings();
 
-    if (page === "orders")
-        loadOrders();
+if(page==="orders")
+loadOrders();
 
-    if (page === "reports")
-        loadReports();
+if(page==="reports")
+loadReports();
 
-    if (page === "transactions")
-        loadTransactions();
+if(page==="announcements")
+loadAnnouncements();
 
-    if (page === "logs")
-        loadLogs();
+if(page==="transactions")
+loadTransactions();
+
+if(page==="logs")
+loadLogs();
+
 }
 
 
-/* =========================
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openModal(){
+
+document
+.getElementById("modal")
+.classList.add("show");
+
+}
+
+function closeModal(){
+
+document
+.getElementById("modal")
+.classList.remove("show");
+
+}
+
+document
+.getElementById("modal")
+.addEventListener(
+"click",
+function(e){
+
+if(e.target===this)
+closeModal();
+
+}
+);
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(
+message,
+type="success"
+){
+
+const toast =
+document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.className=
+"toast show "+type;
+
+clearTimeout(toastTimer);
+
+toastTimer=
+setTimeout(()=>{
+toast.className="toast";
+},3000);
+
+}
+
+
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
-async function logoutAdmin() {
+async function logoutAdmin(){
 
-    const confirmed =
-        confirm(
-            "Admin hesabından çıkış yapmak istiyor musun?"
-        );
+const confirmed =
+confirm(
+"Admin hesabından çıkış yapmak istiyor musun?"
+);
 
-    if (!confirmed) return;
+if(!confirmed)return;
 
-    await supabaseClient.auth.signOut();
+await supabaseClient.auth.signOut();
 
-    window.location.href =
-        "login.html";
+window.location.href=
+"login.html";
+
 }
 
 
-/* =========================
+/* =====================================================
    HELPERS
-========================= */
+===================================================== */
 
-function formatMoney(value) {
+function formatMoney(value){
 
-    return Number(value || 0)
-        .toLocaleString(
-            "tr-TR",
-            {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }
-        );
+return Number(value || 0)
+.toLocaleString(
+"tr-TR",
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
+
 }
 
 
-function formatDate(value) {
+function formatDate(value){
 
-    if (!value) return "-";
+if(!value)return"-";
 
-    return new Date(value)
-        .toLocaleDateString(
-            "tr-TR"
-        );
+return new Date(value)
+.toLocaleDateString(
+"tr-TR",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+);
+
 }
 
 
-function escapeHtml(value) {
+function escapeHtml(value){
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
-(async function() {
+(async function(){
 
-    const isAdmin =
-        await checkAdmin();
+const isAdmin =
+await checkAdmin();
 
-    if (!isAdmin) return;
+if(!isAdmin)return;
 
-    await loadDashboard();
+await loadDashboard();
 
 })();
 
