@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Güvenli Alışveriş | KayısıHub</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -23,9 +25,8 @@
     --muted: #9898a6;
     --border: rgba(255,255,255,.08);
     --green: #56e39f;
-    --yellow: #ffc857;
     --red: #ff5757;
-    --blue: #62a8ff;
+    --blue: #5da9ff;
 }
 
 body {
@@ -33,21 +34,17 @@ body {
     background:
         radial-gradient(
             circle at 80% 0%,
-            rgba(255,138,0,.12),
+            rgba(255,138,0,.14),
             transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(93,169,255,.07),
+            transparent 25%
         ),
         var(--bg);
     color: var(--text);
     font-family: Arial, Helvetica, sans-serif;
-}
-
-button {
-    font-family: inherit;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
 }
 
 /* NAVBAR */
@@ -55,20 +52,27 @@ a {
 nav {
     position: sticky;
     top: 0;
-    z-index: 100;
-    height: 72px;
+    z-index: 1000;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 7%;
+
+    padding: 18px 7%;
+
     background: rgba(8,8,11,.88);
     backdrop-filter: blur(20px);
+
     border-bottom: 1px solid var(--border);
 }
 
 .logo {
-    font-size: 23px;
+    color: white;
+    text-decoration: none;
+
+    font-size: 25px;
     font-weight: 900;
+
     letter-spacing: -1px;
 }
 
@@ -76,78 +80,115 @@ nav {
     color: var(--orange);
 }
 
-.nav-right {
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #d6d6dd;
+    text-decoration: none;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+.user-area {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .btn {
-    border: none;
-    border-radius: 10px;
     padding: 11px 17px;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: .2s;
-}
 
-.btn:hover {
-    transform: translateY(-2px);
+    border-radius: 10px;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition: .25s;
 }
 
 .btn-outline {
-    color: white;
     background: transparent;
+    color: white;
     border: 1px solid var(--border);
 }
 
 .btn-outline:hover {
-    border-color: rgba(255,138,0,.5);
+    border-color: var(--orange);
     color: var(--orange);
 }
 
 .btn-primary {
     color: #111;
-    background: linear-gradient(
-        135deg,
-        var(--orange),
-        var(--orange2)
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
 }
 
 .btn-primary:hover {
-    box-shadow: 0 10px 25px rgba(255,138,0,.2);
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,138,0,.25);
 }
 
-/* MAIN */
+/* CONTAINER */
 
 .container {
-    width: min(1180px, 86%);
+    width: min(1180px, 90%);
     margin: auto;
-    padding: 55px 0 80px;
 }
+
+/* HERO */
 
 .hero {
-    margin-bottom: 25px;
+    padding: 75px 0 35px;
 }
 
-.badge {
+.hero-badge {
     display: inline-block;
+
     padding: 8px 13px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(86,227,159,.2);
+
+    margin-bottom: 18px;
+
     border-radius: 30px;
+
+    border:
+        1px solid
+        rgba(86,227,159,.2);
+
+    background:
+        rgba(86,227,159,.07);
+
     color: var(--green);
-    background: rgba(86,227,159,.06);
-    font-size: 11px;
-    font-weight: 800;
+
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .hero h1 {
-    font-size: clamp(32px, 5vw, 55px);
-    letter-spacing: -2px;
-    margin-bottom: 13px;
+    font-size: clamp(38px, 6vw, 65px);
+
+    line-height: .98;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 20px;
 }
 
 .hero h1 span {
@@ -156,361 +197,555 @@ nav {
 
 .hero p {
     max-width: 650px;
+
     color: var(--muted);
+
     line-height: 1.7;
-    font-size: 14px;
+
+    font-size: 16px;
 }
 
-/* SUMMARY */
-
-.summary {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin: 30px 0;
-}
-
-.summary-card {
-    padding: 22px;
-    border-radius: 16px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,138,0,.05),
-            transparent 40%
-        ),
-        var(--card);
-    border: 1px solid var(--border);
-}
-
-.summary-label {
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 9px;
-}
-
-.summary-value {
-    font-size: 25px;
-    font-weight: 900;
-}
-
-.summary-value.orange {
-    color: var(--orange);
-}
-
-.summary-value.green {
-    color: var(--green);
-}
-
-.summary-value.yellow {
-    color: var(--yellow);
-}
-
-/* SECURITY */
+/* SECURITY BOX */
 
 .security-box {
+    margin-top: 30px;
+
     display: grid;
-    grid-template-columns: 50px 1fr;
-    gap: 15px;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 30px;
-    border: 1px solid rgba(86,227,159,.15);
-    border-radius: 16px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(86,227,159,.07),
-            transparent
-        ),
-        var(--card);
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+.security-item {
+    padding: 18px;
+
+    background: var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
 }
 
 .security-icon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    background: rgba(86,227,159,.1);
-    color: var(--green);
-    font-size: 23px;
+    font-size: 25px;
+
+    margin-bottom: 10px;
 }
 
-.security-box h3 {
-    font-size: 14px;
+.security-item strong {
+    display: block;
+
+    font-size: 12px;
+
     margin-bottom: 5px;
 }
 
-.security-box p {
+.security-item span {
     color: var(--muted);
-    font-size: 11px;
-    line-height: 1.6;
+
+    font-size: 10px;
+
+    line-height: 1.5;
 }
 
-/* SECTION */
+/* USER PANEL */
 
-.section-header {
+.user-panel {
+    margin-top: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+.card {
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,138,0,.04),
+            transparent 35%
+        ),
+        var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,.2);
+}
+
+.card-title {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
-    margin-bottom: 15px;
+
+    gap: 9px;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 18px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    font-size: 13px;
+
+    font-weight: 900;
 }
 
-.section-header h2 {
-    font-size: 18px;
+.title-icon {
+    color: var(--orange);
+
+    font-size: 17px;
 }
 
-.section-header span {
+/* BALANCE */
+
+.balance-value {
+    font-size: 34px;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+.balance-value span {
+    color: var(--orange);
+}
+
+.balance-description {
     color: var(--muted);
+
     font-size: 11px;
+}
+
+/* XP */
+
+.level-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.level {
+    width: 65px;
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    color: #111;
+
+    box-shadow:
+        0 8px 25px
+        rgba(255,138,0,.2);
+}
+
+.level small {
+    font-size: 9px;
+
+    font-weight: 900;
+}
+
+.level strong {
+    font-size: 24px;
+}
+
+.xp-info {
+    flex: 1;
+}
+
+.xp-info strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+}
+
+.xp-info span {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.xp-bar {
+    height: 9px;
+
+    overflow: hidden;
+
+    margin-top: 12px;
+
+    border-radius: 20px;
+
+    background: #25252d;
+}
+
+.xp-progress {
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--orange),
+            var(--orange2)
+        );
+
+    transition:
+        width .6s ease;
 }
 
 /* ORDERS */
 
 .orders {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    margin-top: 18px;
 }
 
 .order {
-    display: grid;
-    grid-template-columns: 65px 1fr auto;
-    gap: 15px;
-    align-items: center;
-    padding: 17px;
-    border-radius: 15px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    transition: .2s;
-}
-
-.order:hover {
-    border-color: rgba(255,138,0,.2);
-}
-
-.order-image {
-    width: 65px;
-    height: 65px;
     display: flex;
+
     align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background:
-        linear-gradient(
-            135deg,
-            #2b1608,
-            #100e12
-        );
-    font-size: 27px;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    margin-bottom: 9px;
+
+    background: var(--card2);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius: 11px;
 }
 
-.order-title {
-    font-size: 13px;
-    font-weight: 800;
-    margin-bottom: 7px;
+.order:last-child {
+    margin-bottom: 0;
 }
 
-.order-meta {
+.order-info strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+.order-info span {
     color: var(--muted);
+
     font-size: 10px;
 }
 
+.order-right {
+    text-align: right;
+}
+
 .order-price {
-    margin-top: 8px;
+    display: block;
+
     color: var(--orange);
-    font-size: 13px;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+.status {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+}
+
+.status.completed {
+    background:
+        rgba(86,227,159,.08);
+
+    color: var(--green);
+}
+
+.status.pending {
+    background:
+        rgba(255,138,0,.08);
+
+    color: var(--orange2);
+}
+
+.status.cancelled {
+    background:
+        rgba(255,87,87,.08);
+
+    color: var(--red);
+}
+
+/* HOW IT WORKS */
+
+.section {
+    padding: 65px 0;
+}
+
+.section-title {
+    margin-bottom: 25px;
+}
+
+.section-title h2 {
+    font-size: 30px;
+
+    letter-spacing: -1px;
+}
+
+.section-title p {
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+.step {
+    position: relative;
+
+    padding: 25px;
+
+    background: var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,138,0,.1);
+
+    color: var(--orange);
+
     font-weight: 900;
 }
 
-.order-status {
-    display: inline-block;
-    padding: 6px 9px;
+.step h3 {
+    font-size: 14px;
+
     margin-bottom: 8px;
-    border-radius: 20px;
-    font-size: 9px;
-    font-weight: 800;
 }
 
-.status-pending {
-    color: var(--yellow);
-    background: rgba(255,200,87,.08);
+.step p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
 }
 
-.status-delivered {
-    color: var(--green);
-    background: rgba(86,227,159,.08);
+/* WARNING */
+
+.warning {
+    margin-top: 20px;
+
+    padding: 17px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid
+        rgba(255,138,0,.18);
+
+    background:
+        rgba(255,138,0,.06);
+
+    color: #d8d8df;
+
+    font-size: 11px;
+
+    line-height: 1.6;
 }
 
-.status-cancelled {
-    color: var(--red);
-    background: rgba(255,87,87,.08);
-}
-
-.status-processing {
-    color: var(--blue);
-    background: rgba(98,168,255,.08);
-}
-
-.order-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 7px;
+.warning strong {
+    color: var(--orange2);
 }
 
 /* EMPTY */
 
 .empty {
-    padding: 60px 20px;
+    padding: 35px 20px;
+
     text-align: center;
-    border-radius: 15px;
-    background: var(--card);
-    border: 1px solid var(--border);
+
+    color: var(--muted);
 }
 
 .empty-icon {
-    font-size: 38px;
-    margin-bottom: 12px;
+    font-size: 35px;
+
+    margin-bottom: 10px;
 }
 
 .empty h3 {
-    font-size: 14px;
-    margin-bottom: 7px;
+    color: white;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
 }
 
 .empty p {
     color: var(--muted);
-    font-size: 11px;
+
+    font-size: 10px;
 }
 
-/* INFO */
+/* FOOTER */
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    margin-top: 30px;
-}
+footer {
+    margin-top: 40px;
 
-.info-card {
-    padding: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 15px;
-}
+    padding: 35px 0;
 
-.info-card-icon {
-    font-size: 23px;
-    margin-bottom: 12px;
-}
+    border-top:
+        1px solid
+        var(--border);
 
-.info-card h3 {
-    font-size: 13px;
-    margin-bottom: 8px;
-}
-
-.info-card p {
     color: var(--muted);
+
     font-size: 11px;
-    line-height: 1.6;
-}
 
-/* LOADING */
-
-.loading {
-    padding: 50px;
     text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-/* TOAST */
-
-.toast {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 999;
-    max-width: 350px;
-    padding: 14px 17px;
-    border-radius: 12px;
-    background: #1a1a21;
-    border: 1px solid var(--border);
-    box-shadow: 0 15px 50px rgba(0,0,0,.4);
-    color: white;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px);
-    transition: .25s;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* MOBILE */
 
-@media(max-width: 800px) {
+@media(max-width:900px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .security-box {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .user-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
 
     nav {
-        padding: 0 5%;
+        padding: 15px 5%;
     }
 
     .container {
         width: 90%;
-        padding-top: 35px;
     }
 
-    .summary {
-        grid-template-columns: 1fr;
-    }
-
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .order {
-        grid-template-columns: 55px 1fr;
-    }
-
-    .order-image {
-        width: 55px;
-        height: 55px;
-    }
-
-    .order-actions {
-        grid-column: 1 / -1;
-        align-items: stretch;
-    }
-
-    .order-actions .btn {
-        width: 100%;
-    }
-}
-
-@media(max-width: 500px) {
-
-    .nav-right .btn-outline {
-        display: none;
+    .hero {
+        padding-top: 50px;
     }
 
     .hero h1 {
-        font-size: 35px;
+        letter-spacing: -2px;
     }
 
     .security-box {
         grid-template-columns: 1fr;
     }
+
+    .user-area .btn {
+        padding: 9px 11px;
+
+        font-size: 11px;
+    }
+
+    .order {
+        align-items: flex-start;
+    }
 }
+
 </style>
+
 </head>
 
 <body>
+
+<!-- NAVBAR -->
 
 <nav>
 
@@ -518,192 +753,360 @@ nav {
         KAYISI<span>HUB</span> 🍑
     </a>
 
-    <div class="nav-right">
+    <div class="nav-links">
 
-        <a href="profil.html" class="btn btn-outline">
-            👤 Profil
+        <a href="index.html">
+            Ana Sayfa
         </a>
 
-        <a href="index.html" class="btn btn-primary">
-            🏠 Ana Sayfa
+        <a href="index.html#market">
+            Hesap Pazarı
+        </a>
+
+        <a href="alisveris.html">
+            Güvenli Alışveriş
+        </a>
+
+        <a href="profil.html">
+            Profil
+        </a>
+
+    </div>
+
+    <div class="user-area">
+
+        <a
+            href="profil.html"
+            class="btn btn-outline"
+        >
+            👤 Profil
         </a>
 
     </div>
 
 </nav>
 
+
+<!-- HERO -->
+
 <main class="container">
 
     <section class="hero">
 
-        <div class="badge">
-            🛡️ GÜVENLİ ALIŞVERİŞ MERKEZİ
+        <div class="hero-badge">
+            🛡️ KAYISIHUB GÜVENLİ ALIŞVERİŞ
         </div>
 
         <h1>
             Alışverişini
-            <span>güvenle</span> yönet.
+            <br>
+            <span>güvenle yap.</span>
         </h1>
 
         <p>
-            KayısıHub üzerindeki siparişlerini,
-            satın aldığın hesapları ve işlem durumlarını
-            tek bir merkezden takip et.
+            KayısıHub üzerinde gerçekleştirdiğin
+            alışverişleri tek bir panelden takip et.
+            İşlem durumunu görüntüle, alışveriş geçmişini
+            incele ve tamamlanan alışverişlerden XP kazan.
         </p>
 
+        <div class="security-box">
+
+            <div class="security-item">
+
+                <div class="security-icon">
+                    🔒
+                </div>
+
+                <strong>
+                    Güvenli İşlem
+                </strong>
+
+                <span>
+                    İşlemler kullanıcı hesabınla
+                    ilişkilendirilir.
+                </span>
+
+            </div>
+
+            <div class="security-item">
+
+                <div class="security-icon">
+                    🧾
+                </div>
+
+                <strong>
+                    İşlem Kaydı
+                </strong>
+
+                <span>
+                    Alışveriş geçmişini
+                    görüntüleyebilirsin.
+                </span>
+
+            </div>
+
+            <div class="security-item">
+
+                <div class="security-icon">
+                    ⚡
+                </div>
+
+                <strong>
+                    XP Kazan
+                </strong>
+
+                <span>
+                    Tamamlanan alışverişlerle
+                    deneyim puanı kazan.
+                </span>
+
+            </div>
+
+            <div class="security-item">
+
+                <div class="security-icon">
+                    🛡️
+                </div>
+
+                <strong>
+                    Destek
+                </strong>
+
+                <span>
+                    Sorun yaşanan işlemler
+                    sistem üzerinden takip edilir.
+                </span>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <section class="summary">
 
-        <div class="summary-card">
+    <!-- USER INFORMATION -->
 
-            <div class="summary-label">
-                BAKİYEN
+    <section class="user-panel">
+
+        <!-- BALANCE -->
+
+        <div class="card">
+
+            <div class="card-title">
+
+                <span class="title-icon">
+                    💰
+                </span>
+
+                Mevcut Bakiyem
+
             </div>
 
-            <div
-                class="summary-value orange"
-                id="balance"
-            >
-                0,00 TL
+            <div class="balance-value">
+
+                <span id="balance">
+                    0,00
+                </span>
+
+                TL
+
+            </div>
+
+            <div class="balance-description">
+                Kullanılabilir hesap bakiyen.
             </div>
 
         </div>
 
-        <div class="summary-card">
 
-            <div class="summary-label">
-                AKTİF SİPARİŞ
+        <!-- XP -->
+
+        <div class="card">
+
+            <div class="card-title">
+
+                <span class="title-icon">
+                    ⭐
+                </span>
+
+                Alışveriş Seviyem
+
             </div>
 
-            <div
-                class="summary-value yellow"
-                id="activeOrders"
-            >
-                0
-            </div>
+            <div class="level-row">
 
-        </div>
+                <div class="level">
 
-        <div class="summary-card">
+                    <small>
+                        SEVİYE
+                    </small>
 
-            <div class="summary-label">
-                TAMAMLANAN ALIŞVERİŞ
-            </div>
+                    <strong id="level">
+                        1
+                    </strong>
 
-            <div
-                class="summary-value green"
-                id="completedOrders"
-            >
-                0
+                </div>
+
+                <div class="xp-info">
+
+                    <strong>
+                        <span id="xp">
+                            0
+                        </span>
+                        XP
+                    </strong>
+
+                    <span id="xpText">
+                        Sonraki seviyeye ilerle.
+                    </span>
+
+                    <div class="xp-bar">
+
+                        <div
+                            class="xp-progress"
+                            id="xpProgress"
+                        ></div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </section>
 
-    <section class="security-box">
 
-        <div class="security-icon">
-            🛡️
-        </div>
+    <!-- ORDERS -->
 
-        <div>
+    <section class="orders">
 
-            <h3>
-                KayısıHub Güvenli İşlem
-            </h3>
+        <div class="card">
 
-            <p>
-                Sipariş durumunu bu sayfadan takip edebilirsin.
-                Ödeme ve bakiye işlemleri sunucu tarafında
-                doğrulanmalıdır. Tarayıcıdaki hiçbir değer
-                güvenilir kabul edilmez.
-            </p>
+            <div class="card-title">
+
+                <span class="title-icon">
+                    📦
+                </span>
+
+                Alışverişlerim
+
+            </div>
+
+            <div id="ordersList">
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        Henüz alışveriş yok
+                    </h3>
+
+                    <p>
+                        Tamamlanan ve devam eden
+                        alışverişlerin burada görünecek.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
 
-    <section>
 
-        <div class="section-header">
+    <!-- HOW IT WORKS -->
+
+    <section class="section">
+
+        <div class="section-title">
 
             <h2>
-                🛒 Siparişlerim
+                Sistem nasıl çalışır?
             </h2>
 
-            <span id="orderCount">
-                0 sipariş
-            </span>
-
-        </div>
-
-        <div
-            id="orders"
-            class="orders"
-        >
-
-            <div class="loading">
-                Siparişlerin yükleniyor...
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="info-grid">
-
-        <div class="info-card">
-
-            <div class="info-card-icon">
-                🔐
-            </div>
-
-            <h3>
-                Güvenli İşlem
-            </h3>
-
             <p>
-                Sipariş işlemlerinde kullanıcı yetkileri
-                ve sipariş sahipliği sunucu tarafında
-                kontrol edilmelidir.
+                KayısıHub alışveriş sürecinin temel adımları.
             </p>
 
         </div>
 
-        <div class="info-card">
 
-            <div class="info-card-icon">
-                📦
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    İlanı seç
+                </h3>
+
+                <p>
+                    Pazaryerinden almak istediğin
+                    oyun hesabını veya ürünü seç.
+                </p>
+
             </div>
 
-            <h3>
-                Sipariş Takibi
-            </h3>
 
-            <p>
-                Aktif, tamamlanan ve iptal edilen
-                siparişlerini tek ekrandan takip et.
-            </p>
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    İşlemi başlat
+                </h3>
+
+                <p>
+                    Satın alma işlemini başlat.
+                    Sistem sipariş için benzersiz
+                    bir işlem kaydı oluşturur.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    İşlemi tamamla
+                </h3>
+
+                <p>
+                    İşlem başarılı şekilde tamamlandığında
+                    alışverişin kaydedilir ve XP kazanırsın.
+                </p>
+
+            </div>
 
         </div>
 
-        <div class="info-card">
 
-            <div class="info-card-icon">
-                🍑
-            </div>
+        <div class="warning">
 
-            <h3>
-                Kayısı XP
-            </h3>
+            <strong>⚠️ Önemli:</strong>
 
-            <p>
-                Tamamlanan alışverişlerden XP kazanarak
-                seviyeni yükseltebileceğin sistem için
-                altyapı hazırlanmıştır.
-            </p>
+            KayısıHub dışındaki kişilerle doğrudan
+            ödeme yapma. Hesap bilgilerini, şifreni
+            veya doğrulama kodlarını başka kullanıcılara
+            gönderme. Gerçek ödeme sistemi devreye
+            alınmadan bu sayfadaki bakiye yalnızca
+            gösterim amaçlıdır.
 
         </div>
 
@@ -711,21 +1114,29 @@ nav {
 
 </main>
 
-<div id="toast" class="toast"></div>
+
+<footer>
+
+    © 2026 KayısıHub — Oyuncular için tasarlandı 🍑
+
+</footer>
+
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =================================
+/* =========================
    SUPABASE
-================================= */
+========================= */
 
 const SUPABASE_URL =
     "https://zvhtimtlxeizvtmmyfdr.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T";
+    "sb_publishable_Q-7Ybduhrf-xX0IfpvVkHg_64Ur11T4";
 
 const supabaseClient =
     window.supabase.createClient(
@@ -737,534 +1148,432 @@ const supabaseClient =
 let currentUser = null;
 
 
-/* =================================
-   HELPERS
-================================= */
+/* =========================
+   FORMAT
+========================= */
 
-function escapeHTML(value) {
+function formatMoney(amount) {
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return Number(amount || 0)
+        .toLocaleString(
+            "tr-TR",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
 }
 
 
-function formatMoney(value) {
+/* =========================
+   XP SYSTEM
+========================= */
 
-    return Number(value || 0).toLocaleString(
-        "tr-TR",
-        {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }
-    ) + " TL";
-}
+function calculateLevel(xp) {
 
+    xp = Number(xp || 0);
 
-function showToast(message) {
+    let level = 1;
 
-    const toast =
-        document.getElementById("toast");
+    let required = 500;
 
-    toast.textContent = message;
+    while (xp >= required) {
 
-    toast.classList.add("show");
+        xp -= required;
 
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
-}
+        level++;
 
+        required =
+            500 +
+            ((level - 1) * 250);
 
-/* =================================
-   STATUS
-================================= */
+    }
 
-function getStatus(status) {
-
-    const statuses = {
-
-        pending: {
-            text: "Beklemede",
-            className: "status-pending"
-        },
-
-        processing: {
-            text: "İşleniyor",
-            className: "status-processing"
-        },
-
-        delivered: {
-            text: "Teslim Edildi",
-            className: "status-delivered"
-        },
-
-        completed: {
-            text: "Tamamlandı",
-            className: "status-delivered"
-        },
-
-        cancelled: {
-            text: "İptal Edildi",
-            className: "status-cancelled"
-        }
-
+    return {
+        level,
+        currentXP: xp,
+        requiredXP: required
     };
 
-    return statuses[status] || {
-        text: "Bilinmiyor",
-        className: "status-processing"
-    };
 }
 
 
-/* =================================
+function updateXP(xp) {
+
+    const result =
+        calculateLevel(xp);
+
+
+    document
+        .getElementById("level")
+        .textContent =
+            result.level;
+
+
+    document
+        .getElementById("xp")
+        .textContent =
+            Number(xp || 0).toLocaleString("tr-TR");
+
+
+    const percentage =
+        Math.min(
+            100,
+            (
+                result.currentXP /
+                result.requiredXP
+            ) * 100
+        );
+
+
+    document
+        .getElementById("xpProgress")
+        .style.width =
+            percentage + "%";
+
+
+    document
+        .getElementById("xpText")
+        .textContent =
+            result.currentXP +
+            " / " +
+            result.requiredXP +
+            " XP — Sonraki seviyeye ilerle.";
+}
+
+
+/* =========================
    USER
-================================= */
+========================= */
 
 async function loadUser() {
 
     const {
         data,
         error
-    } = await supabaseClient.auth.getUser();
+    } =
+        await supabaseClient.auth.getUser();
+
 
     if (error || !data.user) {
 
         window.location.href =
             "login.html";
 
-        return false;
+        return;
     }
 
-    currentUser = data.user;
 
-    return true;
+    currentUser =
+        data.user;
+
+
+    await loadProfile();
+
+    await loadOrders();
+
 }
 
 
-/* =================================
-   BALANCE
-================================= */
+/* =========================
+   PROFILE
+========================= */
 
-/*
-    DİKKAT:
+async function loadProfile() {
 
-    Bakiye frontend tarafından değiştirilmez.
+    if (!currentUser) return;
 
-    Buradaki alan sadece Supabase'den
-    okunacak değer için hazırlanmıştır.
-
-    Gerçek bakiye tablonun yapısına göre
-    aşağıdaki fonksiyonu bağlayacağız.
-*/
-
-async function loadBalance() {
 
     /*
-        ÖRNEK:
-
-        const { data, error } =
-            await supabaseClient
-                .from("profiles")
-                .select("balance")
-                .eq("id", currentUser.id)
-                .single();
-
-        if (!error) {
-            document.getElementById("balance")
-                .textContent =
-                formatMoney(data.balance);
-        }
-    */
-
-    document.getElementById("balance")
-        .textContent = "0,00 TL";
-}
-
-
-/* =================================
-   ORDERS
-================================= */
-
-async function loadOrders() {
-
-    const container =
-        document.getElementById("orders");
-
-    /*
-        BURADA TABLO ADINI
-        KENDİ SUPABASE ŞEMANA GÖRE
-        DEĞİŞTİRECEĞİZ.
-
-        Beklenen alanlar:
-
-        id
-        listing_id
-        buyer_id
-        title
-        price
-        status
-        created_at
+        profiles tablosu mevcut değilse
+        şimdilik varsayılan değerler kullanılır.
     */
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("orders")
-        .select(`
-            id,
-            listing_id,
-            buyer_id,
-            title,
-            price,
-            status,
-            created_at
-        `)
-        .eq("buyer_id", currentUser.id)
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "balance, xp, level"
+            )
+            .eq(
+                "id",
+                currentUser.id
+            )
+            .maybeSingle();
 
-    /*
-        Eğer orders tablon henüz yoksa
-        sayfa kırılmasın diye boş ekran
-        gösteriyoruz.
-    */
 
     if (error) {
 
-        console.error(
-            "Siparişler yüklenemedi:",
-            error
+        console.warn(
+            "Profil bilgileri alınamadı:",
+            error.message
         );
 
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    📦
-                </div>
-
-                <h3>
-                    Henüz sipariş yok
-                </h3>
-
-                <p>
-                    Sipariş sistemin bağlandığında
-                    işlemlerin burada görünecek.
-                </p>
-
-            </div>
-
-        `;
-
-        updateOrderStats([]);
+        updateXP(0);
 
         return;
     }
 
 
-    updateOrderStats(data || []);
+    if (!data) {
 
-    renderOrders(data || []);
-}
-
-
-/* =================================
-   ORDER STATS
-================================= */
-
-function updateOrderStats(orders) {
-
-    const active =
-        orders.filter(order =>
-            [
-                "pending",
-                "processing",
-                "delivered"
-            ].includes(order.status)
-        ).length;
-
-    const completed =
-        orders.filter(order =>
-            order.status === "completed"
-        ).length;
-
-    document.getElementById(
-        "activeOrders"
-    ).textContent = active;
-
-    document.getElementById(
-        "completedOrders"
-    ).textContent = completed;
-
-    document.getElementById(
-        "orderCount"
-    ).textContent =
-        `${orders.length} sipariş`;
-}
-
-
-/* =================================
-   RENDER
-================================= */
-
-function renderOrders(orders) {
-
-    const container =
-        document.getElementById("orders");
-
-    if (!orders.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🛒
-                </div>
-
-                <h3>
-                    Henüz alışveriş yapmadın
-                </h3>
-
-                <p>
-                    Satın aldığın ilanlar burada görünecek.
-                </p>
-
-            </div>
-
-        `;
+        updateXP(0);
 
         return;
     }
 
 
-    container.innerHTML =
-        orders.map(order => {
-
-            const status =
-                getStatus(order.status);
-
-            const date =
-                order.created_at
-                    ? new Date(
-                        order.created_at
-                    ).toLocaleDateString(
-                        "tr-TR"
-                    )
-                    : "-";
+    document
+        .getElementById("balance")
+        .textContent =
+            formatMoney(data.balance);
 
 
-            return `
+    updateXP(data.xp || 0);
 
-                <article class="order">
-
-                    <div class="order-image">
-                        🎮
-                    </div>
-
-                    <div>
-
-                        <div class="order-title">
-                            ${escapeHTML(
-                                order.title ||
-                                "Oyun Hesabı"
-                            )}
-                        </div>
-
-                        <div class="order-meta">
-                            Sipariş #${escapeHTML(
-                                order.id
-                            )}
-                        </div>
-
-                        <div class="order-meta">
-                            ${date}
-                        </div>
-
-                        <div class="order-price">
-                            ${formatMoney(
-                                order.price
-                            )}
-                        </div>
-
-                    </div>
-
-                    <div class="order-actions">
-
-                        <span
-                            class="order-status ${status.className}"
-                        >
-                            ${status.text}
-                        </span>
-
-                        <button
-                            class="btn btn-outline"
-                            onclick="showOrderInfo('${escapeHTML(order.id)}')"
-                        >
-                            Siparişi Gör
-                        </button>
-
-                        ${
-                            order.status === "delivered"
-                            ? `
-                                <button
-                                    class="btn btn-primary"
-                                    onclick="confirmDelivery('${escapeHTML(order.id)}')"
-                                >
-                                    Teslim Aldım
-                                </button>
-                            `
-                            : ""
-                        }
-
-                    </div>
-
-                </article>
-
-            `;
-
-        }).join("");
 }
 
 
-/* =================================
-   ORDER INFO
-================================= */
+/* =========================
+   ORDERS
+========================= */
 
-function showOrderInfo(orderId) {
+async function loadOrders() {
 
-    showToast(
-        "Sipariş #" +
-        orderId +
-        " detay sistemi hazırlanıyor."
-    );
-}
+    if (!currentUser) return;
 
 
-/* =================================
-   DELIVERY
-================================= */
-
-/*
-    ÖNEMLİ:
-
-    Burada doğrudan:
-
-        orders.update(...)
-
-    YAPMIYORUZ.
-
-    Çünkü kullanıcı kendi siparişini
-    manipüle edebilir.
-
-    Bunun yerine Supabase RPC:
-
-        confirm_order_delivery()
-
-    gibi güvenli bir database function
-    kullanılmalı.
-*/
-
-async function confirmDelivery(orderId) {
-
-    const confirmed =
-        confirm(
-            "Bu siparişi teslim aldığını onaylıyor musun?"
+    const ordersList =
+        document.getElementById(
+            "ordersList"
         );
-
-    if (!confirmed) {
-        return;
-    }
 
 
     /*
-        RPC hazır olduğunda:
+        orders tablosu:
+        buyer_id
+        amount
+        status
+        created_at
+        listing_title
+    */
 
-        const { data, error } =
-            await supabaseClient.rpc(
-                "confirm_order_delivery",
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("orders")
+            .select(
+                `
+                id,
+                amount,
+                status,
+                created_at,
+                listing_title
+                `
+            )
+            .eq(
+                "buyer_id",
+                currentUser.id
+            )
+            .order(
+                "created_at",
                 {
-                    p_order_id: orderId
+                    ascending: false
                 }
-            );
-    */
+            )
+            .limit(10);
 
 
-    showToast(
-        "Teslim onay sistemi sunucu tarafına bağlanacak."
-    );
-}
+    if (error) {
 
+        console.warn(
+            "Siparişler alınamadı:",
+            error.message
+        );
 
-/* =================================
-   REALTIME
-================================= */
-
-function subscribeOrders() {
-
-    /*
-        Sipariş tablosuna realtime
-        eklendiğinde kullanıcı sayfayı
-        yenilemeden değişiklikleri görebilir.
-    */
-
-    supabaseClient
-        .channel(
-            "orders-realtime"
-        )
-        .on(
-            "postgres_changes",
-            {
-                event: "*",
-                schema: "public",
-                table: "orders",
-                filter:
-                    "buyer_id=eq." +
-                    currentUser.id
-            },
-            () => {
-
-                loadOrders();
-
-            }
-        )
-        .subscribe();
-}
-
-
-/* =================================
-   START
-================================= */
-
-async function init() {
-
-    const loggedIn =
-        await loadUser();
-
-    if (!loggedIn) {
         return;
     }
 
-    await loadBalance();
 
-    await loadOrders();
+    if (!data || data.length === 0) {
 
-    subscribeOrders();
+        return;
+    }
+
+
+    ordersList.innerHTML = "";
+
+
+    data.forEach(order => {
+
+        const title =
+            order.listing_title ||
+            "KayısıHub Siparişi";
+
+
+        const amount =
+            formatMoney(
+                order.amount
+            );
+
+
+        const date =
+            new Date(
+                order.created_at
+            ).toLocaleDateString(
+                "tr-TR"
+            );
+
+
+        let statusText =
+            "Bekliyor";
+
+
+        let statusClass =
+            "pending";
+
+
+        if (
+            order.status ===
+            "completed"
+        ) {
+
+            statusText =
+                "Tamamlandı";
+
+            statusClass =
+                "completed";
+
+        }
+
+
+        if (
+            order.status ===
+            "cancelled"
+        ) {
+
+            statusText =
+                "İptal edildi";
+
+            statusClass =
+                "cancelled";
+
+        }
+
+
+        const element =
+            document.createElement(
+                "div"
+            );
+
+
+        element.className =
+            "order";
+
+
+        element.innerHTML = `
+
+            <div class="order-info">
+
+                <strong>
+                    ${escapeHTML(title)}
+                </strong>
+
+                <span>
+                    ${date}
+                </span>
+
+            </div>
+
+            <div class="order-right">
+
+                <span class="order-price">
+                    ${amount} TL
+                </span>
+
+                <span class="status ${statusClass}">
+                    ${statusText}
+                </span>
+
+            </div>
+
+        `;
+
+
+        ordersList.appendChild(
+            element
+        );
+
+    });
+
 }
 
 
-init();
+/* =========================
+   HTML SECURITY
+========================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================
+   AUTH LISTENER
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+
+        if (
+            event ===
+            "SIGNED_OUT"
+            ||
+            !session
+        ) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+loadUser();
 
 </script>
 
